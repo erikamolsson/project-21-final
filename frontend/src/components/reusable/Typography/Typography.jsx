@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import { StyledTypography } from "./Typography.styles";
+import { StyledTypography } from "./Typography.styles.jsx";
 
 
 // use like this = <Typography variant="h1" fontWeight="bold" fontSize="2.5rem" color="#d9534f">
-const Typography = ({ variant, children, fontWeight, color, fontSize, textAlign}) => {
+export const Typography = ({ variant, children, fontWeight, color, fontSize, textAlign}) => {
     return (
         <StyledTypography
             as={variant} // h1:a, h2:a eller p 
@@ -35,6 +35,3 @@ Typography.defaultProps = {
     fontSize: "1rem",
     textAlign: "left",
 };
-
-
-export default Typography;

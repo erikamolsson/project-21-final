@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 // standard style for every variant
 const variantStyles = {
@@ -28,7 +28,7 @@ const variantStyles = {
     mobile: "480px",
   };
   
-  const StyledTypography = styled.div`
+  export const StyledTypography = styled.div`
     ${(props) => {
       const variant = variantStyles[props.as] || variantStyles.p; // Standard p if a variant doesnt exist
   
@@ -54,4 +54,4 @@ const variantStyles = {
     margin: 0; 
   `;
 
-  export default StyledTypography;
+/*   export default StyledTypography; */
