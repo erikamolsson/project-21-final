@@ -9,16 +9,14 @@ export const StyledContentBox = styled.section`
     width: ${(props) => props.width};
     padding: ${(props) => props.padding};
     margin: ${(props) => props.margin};
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     /* display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center; */
 
     @media (max-width: ${tabletBreakpoint}) {
-        width: 90%;
         padding: 15px;
+        margin: 2rem;
     }
 `;
 
@@ -47,7 +45,6 @@ ContentBox.propTypes = {
 
 ContentBox.defaultProps = {
     padding: "20px",
-    margin: "10px",
+    margin: "10px auto",
     backgroundColor: "#F3EFE5",
-    width: "90%",
 };
