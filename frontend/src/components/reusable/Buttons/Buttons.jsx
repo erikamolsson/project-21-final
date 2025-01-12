@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 const StyledButton = styled.button`
   background-color: ${(props) => props.backgroundColor};
+  width: ${(props) => props.width};
   color: white;
   border: none;
   border-radius: 5px;
@@ -19,9 +20,9 @@ const StyledButton = styled.button`
   }
 `;
 
-export const Button = ({ text, backgroundColor, onClick }) => {
+export const Button = ({ text, backgroundColor, onClick, width }) => {
     return (
-        <StyledButton backgroundColor={backgroundColor} onClick={onClick}>
+        <StyledButton backgroundColor={backgroundColor} onClick={onClick} width={width}>
             {text}
         </StyledButton>
     );
@@ -31,8 +32,9 @@ Button.propTypes = {
     text: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
+    width: PropTypes.string.isRequired,
 };
 
 
 // How to use the code with the red button for example
-// <Button text="Start the challenge!" backgroundColor="#E75757" onClick={handleStartChallenge}/>
+// <Button text="Start the challenge!" width="100%" backgroundColor="#E75757" onClick={handleStartChallenge}/>

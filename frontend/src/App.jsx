@@ -1,6 +1,7 @@
 import React from "react";
-import { PostNewMessage } from "./components/moduls/Feed/PostNewMessage";
-import { MessageFeed } from "./components/moduls/Feed/MessageFeed";
+import { ChallengeFeed } from "./components/moduls/Feed/ChallengeFeed";
+import { HomepageAll } from "./pages/HomepageAll";
+import { HomepageUser } from "./pages/HomepageUser";
 
 
 
@@ -8,8 +9,9 @@ export const App = () => {
 
   return (
     <>
-      <PostNewMessage />
-      <MessageFeed />
+      <HomepageAll />
+      <HomepageUser />
+      <ChallengeFeed />
     </>
   );
 };

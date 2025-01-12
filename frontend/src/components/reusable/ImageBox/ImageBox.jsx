@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const tabletBreakpoint = "768px";
 
-export const StyledImageBox = styled.section`
+const StyledImageBox = styled.section`
     width: 100%;
     display: flex;
     justify-content: center;
@@ -21,7 +21,7 @@ export const StyledImageBox = styled.section`
     }
 `;
 
-const ImageBox = ({ src, alt, height }) => {
+export const ImageBox = ({ src, alt, height }) => {
     return (
         <StyledImageBox height={height}>
             <img src={src} alt={alt} />
@@ -39,5 +39,3 @@ ImageBox.defaultProps = {
     height: "auto",
 };
 
-
-export default ImageBox;
