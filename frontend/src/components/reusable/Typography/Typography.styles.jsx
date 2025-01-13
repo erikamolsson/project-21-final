@@ -3,22 +3,28 @@ import styled, { css } from "styled-components";
 // standard style for every variant
 const variantStyles = {
     h1: {
-      fontSize: "2.5rem", 
-      fontSizeTablet: "2rem", 
-      fontSizeMobile: "1.8rem", 
+      fontSize: "2.6rem", 
+      fontSizeTablet: "2.3rem", 
+      fontSizeMobile: "2rem", 
       fontWeight: "bold",
+      fontFamily: "Playfair Display, serif;",
+      marginAll: "0.5rem 0 1rem"
     },
     h2: {
       fontSize: "2rem",
-      fontSizeTablet: "1.8rem",
-      fontSizeMobile: "1.5rem",
+      fontSizeTablet: "1.7rem",
+      fontSizeMobile: "1.4rem",
       fontWeight: "normal",
+      fontFamily: "Playfair Display, serif;",
+      marginAll: "0.5rem 0 0.7rem"
     },
     p: {
       fontSize: "1rem",
       fontSizeTablet: "0.9rem",
       fontSizeMobile: "0.8rem",
       fontWeight: "normal",
+      fontFamily: "Roboto, serif;",
+      marginAll: "0.5rem 0"
     },
   };
   
@@ -36,6 +42,8 @@ const variantStyles = {
         font-weight: ${props.fontWeight || variant.fontWeight};
         color: ${props.color || "#000"};
         text-align: ${props.textAlign || "left"};
+        font-family: ${props.fontFamily || variant.fontFamily};
+        margin: ${props.marginAll || variant.marginAll};
   
         // size for desktop
         font-size: ${props.fontSize || variant.fontSize};
@@ -50,8 +58,6 @@ const variantStyles = {
         }
       `;
     }}
-  
-    margin: 0; 
   `;
 
 /*   export default StyledTypography; */

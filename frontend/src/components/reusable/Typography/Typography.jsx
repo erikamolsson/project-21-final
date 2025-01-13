@@ -3,7 +3,7 @@ import { StyledTypography } from "./Typography.styles.jsx";
 
 
 // use like this = <Typography variant="h1" fontWeight="bold" fontSize="2.5rem" color="#d9534f">
-export const Typography = ({ variant, children, fontWeight, color, fontSize, textAlign}) => {
+export const Typography = ({ variant, children, fontWeight, color, fontSize, textAlign, borderBottom}) => {
     return (
         <StyledTypography
             as={variant} // h1:a, h2:a eller p 
@@ -11,6 +11,7 @@ export const Typography = ({ variant, children, fontWeight, color, fontSize, tex
             color={color}
             fontSize={fontSize}
             textAlign={textAlign}
+            borderBottom={borderBottom}
         >
             {children}
         </StyledTypography>
@@ -25,13 +26,14 @@ Typography.propTypes = {
     color: PropTypes.string,
     fontSize: PropTypes.string,
     textAlign: PropTypes.oneOf(["center", "left", "right"]),
+    borderBottom: PropTypes.string,
 };
 
 // standard typography
-Typography.defaultProps = {
+/* Typography.defaultProps = {
     variant: "p",
     fontWeight: "normal",
     color: "#000",
     fontSize: "1rem",
     textAlign: "left",
-};
+}; */

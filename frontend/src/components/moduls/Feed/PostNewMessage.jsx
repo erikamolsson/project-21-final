@@ -29,6 +29,10 @@ const InfoRow = styled.div`
   margin-top: 0.5rem;
 `;
 
+const BtnRow = styled.div`
+    text-align: end;
+`;
+
 const FileInput = styled.input`
     margin-top: 10px;
 `;
@@ -88,7 +92,7 @@ export const PostNewMessage = ({ onNewMessage }) => {
         <Typography variant="h1">
             Share your progress
         </Typography>
-        <ContentBox margin="20px">
+        <ContentBox margin="20px 0">
             <Typography 
                 variant="p" 
                 fontWeight="bold"
@@ -109,24 +113,27 @@ export const PostNewMessage = ({ onNewMessage }) => {
                     max="140"
                     required
                 />
-                <FileInput
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                />
-                {imageFile && (
-                    <p>Attached: {imageFile.name}</p>
-                )}
                 <InfoRow>
-                <p className="character-count">{newMessage.length}/140</p>
-                <Button 
-                    text="Send"
-                    backgroundColor="#E75757" 
-                    /* onClick={handleStartChallenge} */
-                    type="submit" 
-                    disabled={loading}
-                />
-            </InfoRow>
+                    <FileInput
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                    />
+                    {imageFile && (
+                        <p>Attached: {imageFile.name}</p>
+                    )}
+                
+                    <p className="character-count">{newMessage.length}/140</p>
+                </InfoRow>
+                <BtnRow>
+                    <Button 
+                        text="Send"
+                        backgroundColor="#E75757" 
+                        /* onClick={handleStartChallenge} */
+                        type="submit" 
+                        disabled={loading}
+                    />
+                </BtnRow>
             {error && <p className="error">{error}</p>}
             </WriteMessage>  
         </ContentBox>

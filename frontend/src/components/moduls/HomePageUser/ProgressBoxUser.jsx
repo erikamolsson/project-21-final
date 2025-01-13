@@ -21,7 +21,7 @@ export const ProgressBoxUser = () => {
             <Button 
                 text="Start the challenge!"
                 backgroundColor="#E75757" 
-                width="90%"
+                width="100%"
                 /* onClick={} */
             />
             <Typography variant="p">
@@ -30,7 +30,7 @@ export const ProgressBoxUser = () => {
             <Button 
                 text="Challenge is done!"
                 backgroundColor="#91BB97" 
-                width="90%"
+                width="100%"
                 onClick={handleCompleteChallenge}
             />
             <ProgressBar percentage={progress} />

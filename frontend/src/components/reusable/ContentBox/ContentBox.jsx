@@ -16,7 +16,7 @@ export const StyledContentBox = styled.section`
 
     @media (max-width: ${tabletBreakpoint}) {
         padding: 15px;
-        margin: 2rem;
+        margin: 2rem 0;
     }
 `;
 

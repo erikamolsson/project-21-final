@@ -131,7 +131,7 @@ export const MessageFeed = () => {
 
     return (
         <ContentBox
-            margin="20px"
+            margin="20px 0"
         >
             {posts.map((post) => (
             <PostContainer key={post.id}>
