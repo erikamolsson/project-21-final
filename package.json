@@ -5,7 +5,9 @@
     "postinstall": "npm install --prefix backend"
   },
   "dependencies": {
+    "date-fns": "^4.1.0",
     "prop-types": "^15.8.1",
+    "react-datepicker": "^7.6.0",
     "styled-components": "^6.1.14"
   }
 }

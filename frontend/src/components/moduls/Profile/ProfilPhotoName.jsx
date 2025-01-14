@@ -9,16 +9,11 @@ const PhotoName = styled.article`
     align-items: center;
 `;
 
-const PhotoBox = styled.div`
-    border-radius: 50%;
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-`;
-
 const ProfilePhoto = styled.img`
-    height: auto;
-    width: 100%;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 50%;
 `;
 
 const ProfileName = styled.article`
@@ -34,9 +29,7 @@ export const ProfilePhotoName = () => {
                 Your profile
             </Typography>
             <PhotoName>
-                <PhotoBox>
-                    <ProfilePhoto src="public/assets/tjej-app.png" alt="Profile picture"/>
-                </PhotoBox>
+                <ProfilePhoto src="public/assets/IMG_2734.jpeg" alt="Profile picture"/>
                 <ProfileName>
                     <Typography variant="p" fontWeight="bold">
                         Name Surname

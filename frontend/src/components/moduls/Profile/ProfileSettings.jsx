@@ -14,7 +14,7 @@ export const ProfileSettings = () => {
 
     return (
         <section>
-            <Typography variant="h1">
+            <Typography variant="h2">
                 Settings
             </Typography>
             <ContentBox>

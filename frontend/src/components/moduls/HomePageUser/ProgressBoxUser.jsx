@@ -2,8 +2,8 @@ import { useState } from "react";
 import { ContentBox } from "../../reusable/ContentBox/ContentBox";
 import { Typography } from "../../reusable/Typography/Typography";
 import { Button } from "../../reusable/Buttons/Buttons";
-import { ProgressBar } from "../ProgressBar/ProgressBar";
-/* import { EarningsBox } from "../EarningsBox/EarningsBox";  */
+import { ProgressBar } from "../HomePageUser/ProgressBar";
+/* import { EarningsBox } from "../HomePageUser/EarningsBox";  */
 
 
 export const ProgressBoxUser = () => {

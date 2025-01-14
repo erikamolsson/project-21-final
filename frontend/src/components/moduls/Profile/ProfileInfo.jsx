@@ -14,7 +14,7 @@ export const ProfileInfo = () => {
 
     return (
         <section>
-            <Typography variant="h1">
+            <Typography variant="h2">
                 Your information
             </Typography>
             <ContentBox>
