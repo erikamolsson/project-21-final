@@ -5,6 +5,7 @@ import { HomepageAll } from "./pages/HomepageAll";
 import { HomepageUser } from "./pages/HomepageUser";
 import { ProfileUser } from "./pages/ProfileUser";
 import { ChallengesForm } from "./pages/ChallengesForm";
+import { Register } from "./pages/Register";
 
 
 
@@ -17,6 +18,7 @@ export const App = () => {
         <Route path="/" element={<HomepageAll />} />
         <Route path="/feed" element={<ChallengeFeed />} />
         <Route path="/challenges-form" element={<ChallengesForm />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/user-start" element={<HomepageUser />} />
         <Route path="/profile" element={<ProfileUser />} />
       </Routes>

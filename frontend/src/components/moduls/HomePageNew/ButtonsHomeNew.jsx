@@ -1,6 +1,7 @@
 import { Button } from "../../reusable/Buttons/Buttons";
 import { Typography } from "../../reusable/Typography/Typography";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Section = styled.section`
     display: flex;
@@ -16,21 +17,23 @@ export const ButtonsHomeNew = () => {
             <Typography variant="p" fontWeight="bold">
                 Wanna challenge your self? Register now!
             </Typography>
-            <Button 
+            <Link to="/register">
+                <Button 
                 text="Sign up!"
                 backgroundColor="#E75757" 
-                width="90%"
-                /* onClick={} */
-            />
+                width="100%"
+                />
+            </Link>
             <Typography variant="p" fontWeight="bold">
                 Already register? Log in below.
             </Typography>
-            <Button 
+            
+                <Button 
                 text="Log in!"
                 backgroundColor="#91BB97" 
                 width="90%"
-                /* onClick={} */
-            />
+                />
+            
         </Section>
     );
 };
