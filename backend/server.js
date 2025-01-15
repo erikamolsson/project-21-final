@@ -1,6 +1,13 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import connectDB from "./config/db";
+/* import dotenv from "dotenv"; */
+
+/* dotenv.config(); */
+
+// Connect to MongoDB
+connectDB();
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.connect(mongoUrl);
@@ -9,9 +16,12 @@ mongoose.Promise = Promise;
 const port = process.env.PORT || 8080;
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+
+// Routes > start Homepage All
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
