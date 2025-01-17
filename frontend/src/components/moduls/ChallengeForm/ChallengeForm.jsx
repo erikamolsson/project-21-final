@@ -10,12 +10,14 @@ import { ChalendarStart } from "./ChalendarStart";
 
 
 
+
 export const ChallengeForm = () => {
     const [category, setCategory] = useState("");
     const [time, setTime] = useState("");
     const [goal, setGoal] = useState("");
     const [days, setDays] = useState(1);
     const [startDate, setStartDate] = useState(null);
+
 
     const categoryOptions = [
         { label: "Category 1", value: "category1" },

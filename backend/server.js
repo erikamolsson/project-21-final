@@ -9,6 +9,9 @@ import userRoutes from "./routes/userRoutes.js";
 
 
 /* dotenv.config(); */
+const express = require("express");
+const mongoose = require("mongoose");
+const userRoutes = require("./routes/userRoutes");
 
 // Connect to MongoDB
 connectDB();

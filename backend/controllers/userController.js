@@ -1,47 +1,99 @@
-import User from "../models/userModel.js";
-import bcrypt from "bcryptjs";
-import multer from "multer";
 
-// Multer setup for profile images
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
 
-export const registerUser = async (req, res) => {
-  try {
-    const { name, alias, password } = req.body;
+const User = require("../models/userModel");
+const { sign } = require("jsonwebtoken");
 
-    // Kontrollera att obligatoriska fält finns
-    if (!name || !alias || !password) {
-      return res.status(400).json({ message: "Please fill in all required fields" });
+// Skapa JWT-token
+const generateToken = (id) => {
+    return sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
+  };
+  
+  // Registrera användare
+  const registerUser = async (req, res) => {
+    const { name, alias, email, password, profilePicture } = req.body;
+  
+    try {
+      // Kontrollera om e-post eller alias redan används
+      const emailExists = await User.findOne({ email });
+      const aliasExists = await User.findOne({ alias });
+  
+      if (emailExists) {
+        return res.status(400).json({ message: "E-postadressen är redan registrerad" });
+      }
+  
+      if (aliasExists) {
+        return res.status(400).json({ message: "Aliaset är redan taget" });
+      }
+  
+      // Skapa ny användare
+      const user = await User.create({
+        name,
+        alias,
+        email,
+        password,
+        profilePicture: profilePicture || "https://via.placeholder.com/150",
+      });
+  
+      if (user) {
+        res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          alias: user.alias,
+          email: user.email,
+          profilePicture: user.profilePicture,
+          token: generateToken(user._id),
+        });
+      } else {
+        res.status(400).json({ message: "Ogiltiga användaruppgifter" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Serverfel", error: error.message });
     }
-
-    // Kontrollera om alias redan finns
-    const existingUser = await User.findOne({ alias });
-    if (existingUser) {
-      return res.status(400).json({ message: "Alias is already taken" });
+  };
+  
+  // Logga in användare
+  const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      const user = await findOne({ email });
+  
+      if (user && (await user.matchPassword(password))) {
+        res.json({
+          _id: user._id,
+          name: user.name,
+          alias: user.alias,
+          email: user.email,
+          profilePicture: user.profilePicture,
+          token: generateToken(user._id),
+        });
+      } else {
+        res.status(401).json({ message: "Felaktiga uppgifter" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Serverfel", error: error.message });
     }
-
-    // Hasha lösenord
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Skapa ny användare
-    const newUser = new User({
-      name,
-      alias,
-      password: hashedPassword,
-    });
-
-    // Om det finns en bild, spara den som buffer (kan spara till moln om du vill)
-    if (req.file) {
-      newUser.profileImage = req.file.buffer; // Spara bild i databasen
+  };
+  
+  // Hämta användarprofil
+  const getProfile = async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+  
+      if (user) {
+        res.json({
+          _id: user._id,
+          name: user.name,
+          alias: user.alias,
+          email: user.email,
+          profilePicture: user.profilePicture,
+        });
+      } else {
+        res.status(404).json({ message: "Användare hittades inte" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Serverfel", error: error.message });
     }
-
-    await newUser.save();
-
-    res.status(201).json({ message: "User registered successfully", userId: newUser._id });
-  } catch (error) {
-    res.status(500).json({ message: "Something went wrong", error: error.message });
-  }
-};
-
-export const uploadProfileImage = upload.single("profileImage");
+  };
+  
+  module.exports = { registerUser, loginUser, getProfile };

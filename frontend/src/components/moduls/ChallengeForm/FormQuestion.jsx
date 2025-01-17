@@ -9,6 +9,9 @@ const WhiteBox = styled.article`
     background-color: #fff;
     padding: ${(props) => props.padding};
     margin: ${(props) => props.margin};
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
 
     @media (max-width: ${tabletBreakpoint}) {
         padding: 15px;

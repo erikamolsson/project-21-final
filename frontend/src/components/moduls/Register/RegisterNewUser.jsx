@@ -83,7 +83,7 @@ export const RegisterNewUser = () => {
             <ContentBox>
                 <Form onSubmit={handleSubmit}>
 
-                <FormQuestion>
+                <FormQuestion padding="15px" margin="1rem 0">
                     <label>Name Surname</label>
                     <Input 
                         type="text" 
@@ -94,7 +94,7 @@ export const RegisterNewUser = () => {
                     />
                 </FormQuestion>
 
-                <FormQuestion>
+                <FormQuestion padding="15px" margin="1rem 0">
                     <label>Alias for “DailyChallenges”</label>
                     <Input 
                         type="text" 
@@ -105,7 +105,7 @@ export const RegisterNewUser = () => {
                     />
                 </FormQuestion>
 
-                <FormQuestion>
+                <FormQuestion padding="15px" margin="1rem 0">
                     <label>E-mail</label>
                     <Input
                         type="email"
@@ -116,7 +116,7 @@ export const RegisterNewUser = () => {
                     />
                 </FormQuestion>
 
-                <FormQuestion>
+                <FormQuestion padding="15px" margin="1rem 0">
                     <label>Password</label>
                     <Input
                         type="password"
@@ -127,7 +127,7 @@ export const RegisterNewUser = () => {
                     />
                 </FormQuestion>
 
-                <FormQuestion>
+                <FormQuestion padding="15px" margin="1rem 0">
                     <label>Profil image</label>
                     <input type="file" name="profileImage" onChange={handleFileChange} />
                 </FormQuestion>

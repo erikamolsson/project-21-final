@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Button } from "../../reusable/Buttons/Buttons";
 import { Typography } from "../../reusable/Typography/Typography";
+import { SignInPopup } from "../HomePageNew/SignInPopup";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+/* import { isValid } from "date-fns"; */
 
 const Section = styled.section`
     display: flex;
@@ -10,30 +13,43 @@ const Section = styled.section`
     align-items: center;
 `;
 
+const StyledLink = styled(Link)`
+    width: 90%;
+`;
+
 export const ButtonsHomeNew = () => {
+    const [isPopupVisible, setPopupVisible] = useState(false);
+
+    const togglePopup = () => {
+        setPopupVisible(!isPopupVisible);
+    };
 
     return (
-        <Section>
+          <Section>
             <Typography variant="p" fontWeight="bold">
                 Wanna challenge your self? Register now!
             </Typography>
-            <Link to="/register">
+            <StyledLink to="/register">
                 <Button 
-                text="Sign up!"
+                text="Register!"
                 backgroundColor="#E75757" 
                 width="100%"
                 />
-            </Link>
+            </StyledLink>
             <Typography variant="p" fontWeight="bold">
-                Already register? Log in below.
+                Already register? Sign in below.
             </Typography>
             
-                <Button 
-                text="Log in!"
+            <Button 
+                text="Sign in!"
                 backgroundColor="#91BB97" 
                 width="90%"
-                />
+                onClick={togglePopup}
+            />
             
-        </Section>
+            <SignInPopup 
+                isVisible={isPopupVisible} togglePopup={togglePopup}
+            />
+          </Section>
     );
 };
