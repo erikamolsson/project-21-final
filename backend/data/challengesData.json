@@ -1,0 +1,282 @@
+[
+  {
+      "id": 1,
+      "title": "Take a walk in the park",
+      "text": "Spend 30 minutes walking in a nearby park or green space.",
+      "category": "Challenges Outside",
+      "completed": false
+  },
+  {
+      "id": 2,
+      "title": "Plant something",
+      "text": "Plant a flower, herb, or vegetable in your garden or a pot.",
+      "category": "Challenges Outside",
+      "completed": false
+  },
+  {
+      "id": 3,
+      "title": "Go stargazing",
+      "text": "Spend 15 minutes looking at the stars tonight.",
+      "category": "Challenges Outside",
+      "completed": false
+  },
+  {
+      "id": 4,
+      "title": "Pick up litter",
+      "text": "Clean up litter in a public area near you for 20 minutes.",
+      "category": "Challenges Outside",
+      "completed": false
+  },
+  {
+      "id": 5,
+      "title": "Visit a new place",
+      "text": "Explore a new outdoor location you’ve never been to before.",
+      "category": "Challenges Outside",
+      "completed": false
+  },
+  {
+      "id": 6,
+      "title": "Take photos of nature",
+      "text": "Take at least 5 photos of interesting things in nature.",
+      "category": "Challenges Outside",
+      "completed": false
+  },
+  {
+      "id": 7,
+      "title": "Watch a sunrise",
+      "text": "Wake up early and enjoy the sunrise from a good spot.",
+      "category": "Challenges Outside",
+      "completed": false
+  },
+  {
+      "id": 8,
+      "title": "Feed the birds",
+      "text": "Spend some time feeding birds in your area.",
+      "category": "Challenges Outside",
+      "completed": false
+  },
+  {
+      "id": 9,
+      "title": "Explore a trail",
+      "text": "Find and walk along a nature trail in your area.",
+      "category": "Challenges Outside",
+      "completed": false
+  },
+  {
+      "id": 10,
+      "title": "Build a snowman or sandcastle",
+      "text": "Depending on the season, create a snowman or sandcastle.",
+      "category": "Challenges Outside",
+      "completed": false
+  },
+  {
+      "id": 11,
+      "title": "Create a budget",
+      "text": "Spend 30 minutes creating a simple monthly budget.",
+      "category": "Challenges Money",
+      "completed": false
+  },
+  {
+      "id": 12,
+      "title": "Save $5",
+      "text": "Avoid spending $5 today and add it to your savings.",
+      "category": "Challenges Money",
+      "completed": false
+  },
+  {
+      "id": 13,
+      "title": "Pack lunch instead of eating out",
+      "text": "Save money by packing your lunch today.",
+      "category": "Challenges Money",
+      "completed": false
+  },
+  {
+      "id": 14,
+      "title": "Sell one unused item",
+      "text": "Sell an item you no longer use online or to a friend.",
+      "category": "Challenges Money",
+      "completed": false
+  },
+  {
+      "id": 15,
+      "title": "Track spending",
+      "text": "Write down every purchase you make today.",
+      "category": "Challenges Money",
+      "completed": false
+  },
+  {
+      "id": 16,
+      "title": "Plan a no-spend day",
+      "text": "Try not to spend any money for a full 24 hours.",
+      "category": "Challenges Money",
+      "completed": false
+  },
+  {
+      "id": 17,
+      "title": "Learn about investing",
+      "text": "Spend 30 minutes reading about investing basics.",
+      "category": "Challenges Money",
+      "completed": false
+  },
+  {
+      "id": 18,
+      "title": "Coupon hunt",
+      "text": "Find and use at least one coupon or deal for a purchase.",
+      "category": "Challenges Money",
+      "completed": false
+  },
+  {
+      "id": 19,
+      "title": "Set a savings goal",
+      "text": "Define a realistic savings goal and plan how to achieve it.",
+      "category": "Challenges Money",
+      "completed": false
+  },
+  {
+      "id": 20,
+      "title": "Cook dinner at home",
+      "text": "Save money by cooking dinner at home instead of eating out.",
+      "category": "Challenges Money",
+      "completed": false
+  },
+  {
+      "id": 31,
+      "title": "Call a loved one",
+      "text": "Spend 10 minutes catching up with a family member or friend.",
+      "category": "Challenges Social",
+      "completed": false
+  },
+  {
+      "id": 32,
+      "title": "Give a compliment",
+      "text": "Compliment someone genuinely today.",
+      "category": "Challenges Social",
+      "completed": false
+  },
+  {
+      "id": 33,
+      "title": "Help a stranger",
+      "text": "Do one kind act for a stranger, like holding a door or helping them out.",
+      "category": "Challenges Social",
+      "completed": false
+  },
+  {
+      "id": 34,
+      "title": "Reconnect with an old friend",
+      "text": "Send a message or call someone you haven't spoken to in a while.",
+      "category": "Challenges Social",
+      "completed": false
+  },
+  {
+      "id": 35,
+      "title": "Learn about someone",
+      "text": "Ask someone about their day or their hobbies.",
+      "category": "Challenges Social",
+      "completed": false
+  },
+  {
+      "id": 36,
+      "title": "Share a positive post",
+      "text": "Post something positive or inspiring on your social media.",
+      "category": "Challenges Social",
+      "completed": false
+  },
+  {
+      "id": 37,
+      "title": "Join a community event",
+      "text": "Find and participate in a local community event or meetup.",
+      "category": "Challenges Social",
+      "completed": false
+  },
+  {
+      "id": 38,
+      "title": "Say thank you",
+      "text": "Thank someone who has helped you recently.",
+      "category": "Challenges Social",
+      "completed": false
+  },
+  {
+      "id": 39,
+      "title": "Write a handwritten note",
+      "text": "Write a thank-you or appreciation note to someone.",
+      "category": "Challenges Social",
+      "completed": false
+  },
+  {
+      "id": 40,
+      "title": "Smile at people",
+      "text": "Make an effort to smile at everyone you meet today.",
+      "category": "Challenges Social",
+      "completed": false
+  },
+  {
+      "id": 41,
+      "title": "Do 20 push-ups",
+      "text": "Complete 20 push-ups today (can be split into sets).",
+      "category": "Challenges Active",
+      "completed": false
+  },
+  {
+      "id": 42,
+      "title": "Dance for 10 minutes",
+      "text": "Put on your favorite music and dance for 10 minutes.",
+      "category": "Challenges Active",
+      "completed": false
+  },
+  {
+      "id": 43,
+      "title": "Stretch your body",
+      "text": "Spend 15 minutes stretching or practicing yoga.",
+      "category": "Challenges Active",
+      "completed": false
+  },
+  {
+      "id": 44,
+      "title": "Do a plank",
+      "text": "Hold a plank for at least 30 seconds.",
+      "category": "Challenges Active",
+      "completed": false
+  },
+  {
+      "id": 45,
+      "title": "Take the stairs",
+      "text": "Avoid elevators today and use stairs whenever possible.",
+      "category": "Challenges Active",
+      "completed": false
+  },
+  {
+      "id": 46,
+      "title": "Do 50 squats",
+      "text": "Complete 50 squats today (can be split into sets).",
+      "category": "Challenges Active",
+      "completed": false
+  },
+  {
+      "id": 47,
+      "title": "Go for a jog",
+      "text": "Jog or run for at least 10 minutes today.",
+      "category": "Challenges Active",
+      "completed": false
+  },
+  {
+      "id": 48,
+      "title": "Do a workout video",
+      "text": "Follow along with a 15-minute workout video.",
+      "category": "Challenges Active",
+      "completed": false
+  },
+  {
+      "id": 49,
+      "title": "Practice deep breathing",
+      "text": "Do a 5-minute session of deep breathing exercises.",
+      "category": "Challenges Active",
+      "completed": false
+  },
+  {
+      "id": 50,
+      "title": "Play a sport",
+      "text": "Spend at least 20 minutes playing a sport of your choice.",
+      "category": "Challenges Active",
+      "completed": false
+  }
+]

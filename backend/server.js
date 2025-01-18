@@ -1,17 +1,14 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import connectDB from "./config/db";
-import { challengeRoutes } from "./routes/challengeRoutes";
-/* import dotenv from "dotenv"; */
+import { connectDB } from "./config/db";
+import challengeRoutes from "./routes/challengeRoutes";
+import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 
 
-
-/* dotenv.config(); */
-const express = require("express");
-const mongoose = require("mongoose");
-const userRoutes = require("./routes/userRoutes");
+// .env file
+dotenv.config();
 
 // Connect to MongoDB
 connectDB();
@@ -20,21 +17,22 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 7777;
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-//Route getChallenges
-app.use("/api/challenges", challengeRoutes);
-
+// Routes
 // Reg users
 app.use("/api/users", userRoutes);
 
+// getChallenges
+app.use("/api/challenges", challengeRoutes);
 
-// Routes > start Homepage All
+
+// start Homepage All
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });

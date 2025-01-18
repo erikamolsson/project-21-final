@@ -1,7 +1,7 @@
 
 
-const User = require("../models/userModel");
-const { sign } = require("jsonwebtoken");
+import { User } from "../models/userModel";
+import { sign } from "jsonwebtoken";
 
 // Skapa JWT-token
 const generateToken = (id) => {
@@ -56,7 +56,7 @@ const generateToken = (id) => {
     const { email, password } = req.body;
   
     try {
-      const user = await findOne({ email });
+      const user = await User.findOne({ email });
   
       if (user && (await user.matchPassword(password))) {
         res.json({
@@ -89,11 +89,11 @@ const generateToken = (id) => {
           profilePicture: user.profilePicture,
         });
       } else {
-        res.status(404).json({ message: "Användare hittades inte" });
+        res.status(404).json({ message: "Couldn't find user!" });
       }
     } catch (error) {
-      res.status(500).json({ message: "Serverfel", error: error.message });
+      res.status(500).json({ message: "Error", error: error.message });
     }
   };
   
-  module.exports = { registerUser, loginUser, getProfile };
+  export default { registerUser, loginUser, getProfile };

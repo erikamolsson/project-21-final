@@ -1,21 +1,17 @@
-import express from "express";
-import { registerUser } from "../controllers/userController.js";
+import { Router } from "express";
+import userController from "../controllers/userController.js";
+import { protect } from "../middlewares/authMiddleware.js"; // Middleware to protect routes
 
+const router = Router();
+const { registerUser, loginUser, getProfile } = userController;
 
-const express = require("express");
-const { registerUser, loginUser, getProfile } = require("../controllers/userController");
-const { protect } = require("../middleware/authMiddleware");
-
-export const router = express.Router();
-
-// POST /api/users/register - new user
+// Route to register a new user
 router.post("/register", registerUser);
 
-// POST /api/users/login - sign in
+// Route to log in a user
 router.post("/login", loginUser);
 
-// GET /api/users/profile - get profile
+// Route to get the logged-in user's profile (protected route)
 router.get("/profile", protect, getProfile);
 
-module.exports = router;
-
+export default router;
