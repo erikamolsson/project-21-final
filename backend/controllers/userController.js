@@ -1,5 +1,3 @@
-
-
 import { User } from "../models/userModel";
 import { sign } from "jsonwebtoken";
 
@@ -13,7 +11,7 @@ const generateToken = (id) => {
     const { name, alias, email, password, profilePicture } = req.body;
   
     try {
-      // Kontrollera om e-post eller alias redan används
+      // controle if email or alias already exist
       const emailExists = await User.findOne({ email });
       const aliasExists = await User.findOne({ alias });
   
@@ -25,7 +23,7 @@ const generateToken = (id) => {
         return res.status(400).json({ message: "Aliaset är redan taget" });
       }
   
-      // Skapa ny användare
+      // create user
       const user = await User.create({
         name,
         alias,
