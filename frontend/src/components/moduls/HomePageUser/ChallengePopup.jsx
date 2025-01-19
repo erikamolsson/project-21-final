@@ -4,6 +4,7 @@ import { Typography } from "../../reusable/Typography/Typography";
 import { Button } from "../../reusable/Buttons/Buttons";
 
 
+
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -29,26 +30,9 @@ const PopupBox = styled.div`
 
 
 // Main Component
-export const ChallengePopup = ({ isOpen, onClose }) => {
-  const [challenge, setChallenge] = useState("Loading challenge...");
+export const ChallengePopup = ({ isOpen, onClose, challenge }) => {
+  if (!isOpen || !challenge) return null;
 
-  // Simulate API call to fetch a random challenge
-  useEffect(() => {
-    if (isOpen) {
-      // Mocking a challenge fetch
-      const challenges = [
-        "Drink 8 glasses of water today!",
-        "Take a 15-minute walk during lunch.",
-        "Spend 10 minutes meditating.",
-        "Write down 3 things you're grateful for.",
-      ];
-      const randomChallenge =
-        challenges[Math.floor(Math.random() * challenges.length)];
-      setChallenge(randomChallenge);
-    }
-  }, [isOpen]);
-
-  if (!isOpen) return null;
 
   return (
     <Overlay>
@@ -57,7 +41,8 @@ export const ChallengePopup = ({ isOpen, onClose }) => {
             Today's Challenge
         </Typography>
         <Typography variant="p">
-            {challenge}
+            {challenge.text}
+            {/* {challenge} */}
         </Typography>
         <Button 
             text="OK"
