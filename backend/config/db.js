@@ -1,11 +1,21 @@
-/* import mongoose from "mongoose"; */
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-/* export const connectDB = async () => {
-    try {
-      const conn = await mongoose.connect(process.env.MONGO_URL);
-      console.log(`MongoDB connected: ${conn.connection.host}`);
-    } catch (error) {
-      console.error(`Error: ${error.message}`);
-      process.exit(1); // Exit process with failure
-    }
-  }; */
+dotenv.config();
+
+
+export const dbConnect = async () => {
+  const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
+
+  try {
+    await mongoose.connect(mongoUrl);
+    mongoose.Promise = Promise;
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+    process.exit(1);
+  }
+};
+
+
+module.exports = dbConnect;

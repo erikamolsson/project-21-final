@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-
-
+import crypto from "crypto";
 
 
 
@@ -23,22 +22,23 @@ const userSchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  profileImage: { 
+  token: {
     type: String,
-    default: "https://via.placeholder.com/150",  
-  },
+    default: () => crypto.randomBytes(128).toString("hex")
+  }
 });
 
 
 // Middleware: crypt befor storing
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    return next();
+  if (!this.isModified("password")) return next();
+
+  try {
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+  } catch (error) {
+    next(error); // Pass error to the next middleware
   }
-  console.log("Hashing password...");
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
 });
 
 // verify password

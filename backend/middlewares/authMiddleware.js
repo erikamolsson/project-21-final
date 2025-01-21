@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken";
-import User from "../models/userModel";
+import { User } from "../models/userModel";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const protect = async (req, res, next) => {
   let token;
@@ -25,5 +28,3 @@ export const protect = async (req, res, next) => {
     res.status(401).json({ message: "Ingen token funnen" });
   }
 };
-
-

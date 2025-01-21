@@ -1,97 +1,122 @@
 import { User } from "../models/userModel";
-import { sign } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 
 // Skapa JWT-token
 const generateToken = (id) => {
-    return sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
-  };
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is not defined in environment variables");
+  }
+
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
+};
+
   
-  // Registrera användare
-  const registerUser = async (req, res) => {
-    const { name, alias, email, password, profilePicture } = req.body;
-  
-    try {
-      // controle if email or alias already exist
-      const emailExists = await User.findOne({ email });
-      const aliasExists = await User.findOne({ alias });
-  
-      if (emailExists) {
-        return res.status(400).json({ message: "E-postadressen är redan registrerad" });
-      }
-  
-      if (aliasExists) {
-        return res.status(400).json({ message: "Aliaset är redan taget" });
-      }
-  
-      // create user
-      const user = await User.create({
-        name,
-        alias,
-        email,
-        password,
-        profilePicture: profilePicture || "https://via.placeholder.com/150",
+const registerUser = async (req, res) => {
+
+  try {
+    const { name, alias, email, password } = req.body;
+    console.log("Name:", name); 
+    // Check if email or alias already exists
+    const existingAlias = await User.findOne({ alias });
+    const existingEmail = await User.findOne({ email });
+
+    if (existingAlias) {
+      return res.status(400).json({ message: "Alias is already taken" });
+    }
+    if (existingEmail) {
+      return res.status(400).json({ message: "Email is already registered" });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user
+    const user = await User.create({
+      name,
+      alias,
+      email,
+      password: hashedPassword,
+    });
+
+    if (user) {
+      res.status(201).json({
+        id: user._id,
+        name: user.name,
+        alias: user.alias,
+        email: user.email,
+        token: generateToken(user._id),
       });
-  
-      if (user) {
-        res.status(201).json({
-          _id: user._id,
-          name: user.name,
-          alias: user.alias,
-          email: user.email,
-          profilePicture: user.profilePicture,
-          token: generateToken(user._id),
-        });
-      } else {
-        res.status(400).json({ message: "Ogiltiga användaruppgifter" });
-      }
-    } catch (error) {
-      res.status(500).json({ message: "Serverfel", error: error.message });
+    } else {
+      res.status(400).json({ message: "Invalid user data" });
     }
-  };
-  
-  // Logga in användare
-  const loginUser = async (req, res) => {
-    const { email, password } = req.body;
-  
-    try {
-      const user = await User.findOne({ email });
-  
-      if (user && (await user.matchPassword(password))) {
-        res.json({
-          _id: user._id,
-          name: user.name,
-          alias: user.alias,
-          email: user.email,
-          profilePicture: user.profilePicture,
-          token: generateToken(user._id),
-        });
-      } else {
-        res.status(401).json({ message: "Felaktiga uppgifter" });
-      }
-    } catch (error) {
-      res.status(500).json({ message: "Serverfel", error: error.message });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// Login user
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (user && (await user.matchPassword(password))) {
+      res.json({
+        id: user._id,
+        name: user.name,
+        alias: user.alias,
+        email: user.email,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(401).json({ message: "Invalid credentials" });
     }
-  };
-  
-  // Hämta användarprofil
-  const getProfile = async (req, res) => {
-    try {
-      const user = await User.findById(req.user.id);
-  
-      if (user) {
-        res.json({
-          _id: user._id,
-          name: user.name,
-          alias: user.alias,
-          email: user.email,
-          profilePicture: user.profilePicture,
-        });
-      } else {
-        res.status(404).json({ message: "Couldn't find user!" });
-      }
-    } catch (error) {
-      res.status(500).json({ message: "Error", error: error.message });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// Get user profile
+const getProfile = async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ message: "Unauthorized access" });
     }
-  };
-  
-  export default { registerUser, loginUser, getProfile };
+
+    const user = await User.findById(req.user.id);
+    if (user) {
+      res.json({
+        id: user._id,
+        name: user.name,
+        alias: user.alias,
+        email: user.email,
+      });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error", error: error.message });
+  }
+};
+
+
+const getUserID = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+
+export default { registerUser, loginUser, getProfile, getUserID };
