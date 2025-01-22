@@ -1,5 +1,5 @@
 import { User } from "../models/userModel";
-import jwt from "jsonwebtoken";
+/* import jwt from "jsonwebtoken"; */
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 
@@ -7,20 +7,20 @@ dotenv.config();
 
 
 // Skapa JWT-token
-const generateToken = (id) => {
+/* const generateToken = (id) => {
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined in environment variables");
   }
 
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
-};
+}; */
 
   
 const registerUser = async (req, res) => {
 
   try {
+    console.log("Incoming Request Body:", req.body);
     const { name, alias, email, password } = req.body;
-    console.log("Name:", name); 
     // Check if email or alias already exists
     const existingAlias = await User.findOne({ alias });
     const existingEmail = await User.findOne({ email });
@@ -43,9 +43,17 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    if (user) {
+    console.log("Created User:", user);
+
+    res.status(201).json({
+      id: user._id,
+      name: user.name,
+      alias: user.alias,
+      email: user.email,
+    });
+   /*  if (user) {
       res.status(201).json({
-        id: user._id,
+        _id: user._id,
         name: user.name,
         alias: user.alias,
         email: user.email,
@@ -53,7 +61,7 @@ const registerUser = async (req, res) => {
       });
     } else {
       res.status(400).json({ message: "Invalid user data" });
-    }
+    } */
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
@@ -108,11 +116,14 @@ const getProfile = async (req, res) => {
 
 const getUserID = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).select("-password");
+    console.log("Fetching user with ID:", req.params.id);
+    const user = await User.findById(req.params.id);
+    console.log("Found User:", user);
+    
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    res.json(user);
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
