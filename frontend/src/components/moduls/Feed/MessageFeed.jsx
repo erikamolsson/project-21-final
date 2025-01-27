@@ -66,67 +66,59 @@ const TimePosted = styled.span`
   color: #888;
 `;
 
-// Mockade API-data
-const fetchPosts = async () => {
-    return [
-      {
-        id: 1,
-        title: "TITLE",
-        content:
-          "How did you manage this challenge? Can we share our stories and compare. Would be so fun to see how others approached it! :)",
-        image: null,
-        likes: 10,
-        timestamp: new Date().getTime() - 3600 * 1000, 
-      },
-      {
-        id: 2,
-        title: "TITLE",
-        content: "How did you manage this challenge? Can we share our stories and compare.",
-        image: "https://via.placeholder.com/150", 
-        likes: 10,
-        timestamp: new Date().getTime() - 3600 * 24 * 1000 * 3, 
-      },
-      {
-        id: 3,
-        title: "TITLE",
-        content:
-          "How did you manage this challenge? Can we share our stories and compare. Would be so fun to see how others approached it! :)",
-        image: null,
-        likes: 10,
-        timestamp: new Date().getTime() - 3600 * 24 * 1000 * 6,
-      },
-    ];
-  };
 
-export const MessageFeed = () => {
+
+
+export const MessageFeed = ({ refreshTrigger}) => {
     const [posts, setPosts] = useState([]);
+    const [likedPosts, setLikedPosts] = useState({});
 
-    
+    // Fetch all posts from the backend
     useEffect(() => {
-        // Hämtar inlägg (mockad API-anrop)
-        const getPosts = async () => {
-          const data = await fetchPosts();
-          setPosts(data);
-        };
-        getPosts();
-      }, []);
+      fetch("http://localhost:5000/posts")
+          .then(response => response.json())
+          .then(data => setPosts(data.slice(0, 30))) // Limit to 20 latest items
+          .catch(error => console.error("Error fetching data:", error));
+    }, [refreshTrigger]);
+
 
     // Handle likes
-    const handleLike = (id) => {
-        setPosts((prevPosts) =>
-          prevPosts.map((post) =>
-            post.id === id ? { ...post, likes: post.likes + 1 } : post
-          )
-        );
+    const handleLike = async (id) => {
+      const alreadyLiked = likedPosts[id];
+
+      try {
+        await fetch(`http://localhost:5000/posts/${id}/like`, {
+            method: alreadyLiked ? "DELETE" : "POST", 
+            headers: { "Content-Type": "application/json" },
+          });
+    
+          setLikedPosts((prev) => ({ ...prev, [id]: !alreadyLiked }));
+          setPosts((prevFeed) =>
+            prevFeed.map((post) =>
+              post._id === id
+                ? { ...post, likes: post.likes + (alreadyLiked ? -1 : 1) }
+                : post
+            )
+          );
+        } catch (error) {
+          console.error("Error updating like:", error);
+        }
       };
+    
 
     // How long ago a message was posted
     const formatTime = (timestamp) => {
-        const secondsAgo = Math.floor((new Date().getTime() - timestamp) / 1000);
-        if (secondsAgo < 60) return `${secondsAgo} seconds ago`;
-        if (secondsAgo < 3600) return `${Math.floor(secondsAgo / 60)} minutes ago`;
-        if (secondsAgo < 86400) return `${Math.floor(secondsAgo / 3600)} hours ago`;
-        return `${Math.floor(secondsAgo / 86400)} days ago`;
+      const now = new Date();
+      const postDate = new Date(timestamp);
+      const secondsAgo = Math.floor((now - postDate) / 1000);
+    
+      if (secondsAgo < 60) return `${secondsAgo} seconds ago`;
+      const minutesAgo = Math.floor(secondsAgo / 60);
+      if (minutesAgo < 60) return `${minutesAgo} minutes ago`;
+      const hoursAgo = Math.floor(minutesAgo / 60);
+      if (hoursAgo < 24) return `${hoursAgo} hours ago`;
+      const daysAgo = Math.floor(hoursAgo / 24);
+      return `${daysAgo} days ago`;
     };
 
     return (
@@ -134,15 +126,15 @@ export const MessageFeed = () => {
             margin="20px 0"
         >
             {posts.map((post) => (
-            <PostContainer key={post.id}>
+            <PostContainer key={post._id}>
                 <TimeAgoRow>
-                    <TimePosted>{formatTime(post.timestamp)}</TimePosted>
+                  <TimePosted>{formatTime(post.timestamp || post.createdAt)}</TimePosted>
                 </TimeAgoRow>
                 <Typography variant="h2">{post.title}</Typography>
                 <Typography variant="p">{post.content}</Typography>
                 {post.image && <Image src={post.image} alt="Post visual" />}
                 <InfoRow>
-                    <LikeButton onClick={() => handleLike(post.id)}>
+                    <LikeButton onClick={() => handleLike(post._id)}>
                         👍 {post.likes} likes
                     </LikeButton>
                     <CommentButton>Comment</CommentButton>

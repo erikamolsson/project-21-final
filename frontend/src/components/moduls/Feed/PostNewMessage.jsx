@@ -33,15 +33,15 @@ const BtnRow = styled.div`
     text-align: end;
 `;
 
-const FileInput = styled.input`
+/* const FileInput = styled.input`
     margin-top: 10px;
-`;
+`; */
 
 
-export const PostNewMessage = ({ onNewMessage }) => {
+export const PostNewMessage = ({ onNewPost }) => {
     const [error, setError] = useState(null);
     const [newMessage, setNewMessage] = useState("");
-    const [imageFile, setImageFile] = useState(null);
+    /* const [imageFile, setImageFile] = useState(null); */
     const [loading, setLoading] = useState(false);
 
 
@@ -52,38 +52,61 @@ export const PostNewMessage = ({ onNewMessage }) => {
     };
 
     // Function to handle file input change
-    const handleFileChange = (e) => {
+    /* const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setImageFile(file);
         }
-    };
+    }; */
 
 
     // Simulated submit function
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!newMessage.trim()) {
-            setError("Message cannot be empty");
+        setLoading(true);
+        setError(null);
+
+
+        if(newMessage.length < 5 || newMessage.length > 140) {
+            setError("The post needs to be between 5 and 140 characters long.");
+            setLoading(false);
             return;
         }
-        setLoading(true);
 
-        // Simulating the submission of message and image
-        const formData = new FormData();
-        formData.append("message", newMessage);
+        // Create FormData to send text and image
+        /* const formData = new FormData();
+        formData.append("title", "Post Title"); 
+        formData.append("content", newMessage); 
         if (imageFile) {
-            formData.append("image", imageFile);
-        }
+            formData.append("image", imageFile); 
+        }   */   
 
-        // Simulating API call
-        setTimeout(() => {
-            onNewMessage({ text: newMessage, image: imageFile?.name }); // Replace with real API logic
+        try {
+            // Send POST request to the backend
+            const response = await fetch("http://localhost:5000/posts", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                message: newMessage,
+              }),
+            });
+        
+            if (!response.ok) {
+              throw new Error("Failed to create a new post");
+            }
+        
+            const createdPost = await response.json();
+            onNewPost(createdPost);
+            // Clear the form after a successful submission
             setNewMessage("");
-            setImageFile(null);
-            setLoading(false);
-            setError(null);
-        }, 1000);
+          } catch (err) {
+            console.error("Error creating a new post:", err.message);
+            setError("Failed to post your message. Please try again.");
+          } finally {
+            setLoading(false); // Hide the loading state
+          }
     };
 
     
@@ -114,14 +137,14 @@ export const PostNewMessage = ({ onNewMessage }) => {
                     required
                 />
                 <InfoRow>
-                    <FileInput
+                    {/* <FileInput
                         type="file"
                         accept="image/*"
                         onChange={handleFileChange}
                     />
                     {imageFile && (
                         <p>Attached: {imageFile.name}</p>
-                    )}
+                    )} */}
                 
                     <p className="character-count">{newMessage.length}/140</p>
                 </InfoRow>
