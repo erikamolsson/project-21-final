@@ -31,8 +31,8 @@ export const Button = ({ text, backgroundColor, onClick, width }) => {
 Button.propTypes = {
     text: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-    width: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
+    width: PropTypes.string,
 };
 
 

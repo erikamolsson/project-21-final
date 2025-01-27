@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { ContentBox } from "../../reusable/ContentBox/ContentBox";
 import { Typography } from "../../reusable/Typography/Typography";
 import { Button } from "../../reusable/Buttons/Buttons";
+import { useUser } from "../../../context/UserContext";
 
 
 const Article = styled.article`
@@ -11,6 +13,29 @@ const Article = styled.article`
 `;
 
 export const ProfileInfo = () => {
+    const { user } = useUser();
+
+
+    useEffect(() => {
+
+        if (token) {
+            const fetchProfile = async () => {
+                const token = localStorage.getItem("token");
+
+                const response = await fetch("http://localhost:5000/users/profile", {
+                    method: "GET", 
+                    headers: {
+                        "Authorization": `Bearer ${token}`, 
+                        "Content-Type": "application/json", 
+                    },
+                    body: JSON.stringify(data),
+                });
+                const data = await response.json();
+                loginUser(data); // Update context with fetched data
+            };
+            fetchProfile();
+        }
+    }, [token]);
 
     return (
         <section>
@@ -28,10 +53,10 @@ export const ProfileInfo = () => {
                 </Article>
                 <Article>
                 <Typography variant="p" >
-                        User name
+                        Alias
                     </Typography>
                     <Typography variant="p">
-                        Alias
+                        {user?.alias || "Alias not available"}
                     </Typography>
                 </Article>
                 <Article>
@@ -39,7 +64,7 @@ export const ProfileInfo = () => {
                         Name
                     </Typography>
                     <Typography variant="p">
-                        Name Surname
+                        {user?.name || "Name not available"}
                     </Typography>
                 </Article>
             </ContentBox>

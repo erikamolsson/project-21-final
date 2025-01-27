@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { Typography } from "../../reusable/Typography/Typography";
+import { useUser } from "../../../context/UserContext";
 
 
 
@@ -23,6 +25,46 @@ const ProfileName = styled.article`
 
 
 export const ProfilePhotoName = () => {
+    const { user, loginUser } = useUser(); // Access user data from context
+
+    const token = localStorage.getItem("token");
+    console.log("Token:", token);
+
+    useEffect(() => {
+        // Fetch profile only if user is null and token is available
+        if (!user && token) {
+            const fetchProfile = async () => {
+                try {
+                    const response = await fetch("http://localhost:5000/users/profile", {
+                        method: "GET", 
+                        headers: {
+                            "Authorization": `Bearer ${token}`, 
+                            "Content-Type": "application/json", 
+                        },
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch profile");
+                    }
+
+                    const data = await response.json();
+                    console.log("Fetched Profile Data:", data); 
+                    loginUser(data); // Update context with fetched data
+                } catch (err) {
+                    console.error("Error fetching profile:", err.message);
+                }
+            };
+
+            fetchProfile();
+        }
+    }, [user, token, loginUser]);
+
+    
+    if (!user) {
+        return <p>Loading...</p>; // Show loading if user data is not available yet
+    }
+    
+    
     return (
         <section>
             <Typography variant="h1">
@@ -32,10 +74,10 @@ export const ProfilePhotoName = () => {
                 <ProfilePhoto src="public/assets/IMG_2734.jpeg" alt="Profile picture"/>
                 <ProfileName>
                     <Typography variant="p" fontWeight="bold">
-                        Name Surname
+                        {user.name}
                     </Typography>
                     <Typography variant="p">
-                        User Alias
+                        {user.alias}
                     </Typography>
                 </ProfileName>
             </PhotoName>

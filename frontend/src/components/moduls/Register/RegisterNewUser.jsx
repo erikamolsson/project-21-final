@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { ContentBox } from "../../reusable/ContentBox/ContentBox";
 import { Typography } from "../../reusable/Typography/Typography";
 import { FormQuestion } from "../ChallengeForm/FormQuestion";
-import { Button } from "../../reusable/Buttons/Buttons";
+/* import { Button } from "../../reusable/Buttons/Buttons"; */
 
 
 const Form = styled.form`
@@ -21,7 +21,6 @@ export const RegisterNewUser = () => {
         alias: "",
         email: "",
         password: "",
-        profileImage: null,
     });
 
     const [error, setError] = useState(null);
@@ -33,42 +32,59 @@ export const RegisterNewUser = () => {
     };
 
     // Handle image file
-    const handleFileChange = (e) => {
+    /* const handleFileChange = (e) => {
         setFormData((prevData) => ({
           ...prevData,
           profileImage: e.target.files[0], 
         }));
-      };
+      }; */
 
     // Function for handle the submit form
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
     
-        try {
+        try { 
           // Send to backend
-          const formDataToSend = new FormData();
+          const formDataToSend = {
+            name: formData.name,
+            alias: formData.alias,
+            email: formData.email,
+            password: formData.password,
+          };
+
+          console.log("Form Data Submitted:", formDataToSend);
+
+          /* const formDataToSend = new FormData();
           formDataToSend.append("name", formData.name);
           formDataToSend.append("alias", formData.alias);
           formDataToSend.append("email", formData.email);
-          formDataToSend.append("password", formData.password);
-          if (formData.profileImage) {
-            formDataToSend.append("profileImage", formData.profileImage);
-          }
+          formDataToSend.append("password", formData.password); */
+
+
           // Change when deployed
-          const response = await fetch("http://localhost:8080/api/users/register", {
+          const createUser = await fetch("http://localhost:5000/users/register", {
             method: "POST",
-            body: formDataToSend,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formDataToSend)
           });
+
     
-          if (!response.ok) {
-            throw new Error("Registration failed");
+          if (!createUser.ok) {
+            const errorDetails = await createUser.json();
+            throw new Error(errorDetails.message || "Registration failed");
           }
     
-          const result = await response.json();
-    
+          const result = await createUser.json();
+          console.log("Result:", result); // Debug the response
+
+            if (!result._id) {
+            throw new Error("User ID not returned from the server");
+            }
           // Navigate to profile page
-          navigate(`/profile/${result.userId}`);
+          navigate(`/users/${result._id}`);
         } catch (err) {
           setError(err.message || "Something went wrong.");
         }
@@ -127,18 +143,18 @@ export const RegisterNewUser = () => {
                     />
                 </FormQuestion>
 
-                <FormQuestion padding="15px" margin="1rem 0">
+                {/* <FormQuestion padding="15px" margin="1rem 0">
                     <label>Profil image</label>
-                    <input type="file" name="profileImage" onChange={handleFileChange} />
-                </FormQuestion>
+                    <input 
+                        type="file" 
+                        name="profileImage" 
+                        onChange={handleFileChange} 
+                    />
+                </FormQuestion> */}
 
-                <Button 
-                    text="Create profile"
-                    backgroundColor="#E75757"
-                    width="100%"
-                    type="submit"
-                    /* onClick={submitForm} */
-                />
+                <button type="submit">
+                    Create profile
+                </button> 
                 {error && <p>{error}</p>}
                 </Form>
             </ContentBox>

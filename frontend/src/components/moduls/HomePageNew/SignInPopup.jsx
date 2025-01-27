@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import { Typography } from "../../reusable/Typography/Typography";
 import { Button } from "../../reusable/Buttons/Buttons";
+import { useUser } from "../../../context/UserContext";
 
 
 const Overlay = styled.div`
@@ -53,17 +54,43 @@ const CloseButton = styled.button`
 export const SignInPopup = ({ isVisible, togglePopup}) => {
     const [alias, setAlias] = useState("");
     const [password, setPassword] = useState("");
-
+    const { loginUser } = useUser();
     const navigate = useNavigate(); // useNavigate hook
 
-    // Login logic
-    const handleLogin = () => {
-        console.log("Alias:", alias);
-        console.log("Password:", password);
-        togglePopup();
+    const token = localStorage.getItem("token");
 
-        //When signed in user get to /profile
-        navigate("/profile");
+    // Login logic
+    const handleLogin = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/users/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ alias, password }),
+            });
+
+            // Log response for debugging
+            console.log("Response Status:", response.status);
+            console.log("Response Details:", response);
+            console.log("Token:", token);
+      
+            if (!response.ok) {
+              const errorDetails = await response.json();
+                throw new Error(errorDetails.message || "Failed to log in");
+            }
+
+            // Parse the response and save the token
+            const userData = await response.json();// Save token in localStorage
+            loginUser(userData);
+            console.log("User", userData)
+
+            // Close the popup and navigate to profile
+            togglePopup(); // Close the popup
+            navigate("/profile"); // Navigate to profile page
+          } catch (err) {
+            console.error(err.message);
+          }
     };
 
     return (
