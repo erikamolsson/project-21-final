@@ -9,6 +9,7 @@ import { ChallengesForm } from "./pages/ChallengesForm";
 import { Register } from "./pages/Register";
 import { UserProvider } from "./context/UserContext";
 import { Header } from "./components/moduls/Header/Header";
+import { Footer } from "./components/moduls/Footer/Footer";
 
 
 
@@ -29,6 +30,7 @@ export const App = () => {
             <Route path="/users/:id" element={<ProfileIDPage />} />
           </Routes>
         </BrowserRouter>
+        <Footer />
       </UserProvider>   
     </>
   );
