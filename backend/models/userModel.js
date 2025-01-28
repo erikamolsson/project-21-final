@@ -20,7 +20,8 @@ const userSchema = new mongoose.Schema({
   },
   password: { 
     type: String, 
-    required: true 
+    required: true ,
+    select: false
   },
   token: {
     type: String,
@@ -42,7 +43,9 @@ userSchema.pre("save", async function (next) {
 });
 
 // verify password
+
 userSchema.methods.matchPassword = async function (enteredPassword) {
+  console.log(enteredPassword);
   return await bcrypt.compare(enteredPassword, this.password);
 };
 

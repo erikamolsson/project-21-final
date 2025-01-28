@@ -1,5 +1,5 @@
 import { User } from "../models/userModel";
-/* import jwt from "jsonwebtoken"; */
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 
@@ -7,13 +7,13 @@ dotenv.config();
 
 
 // Skapa JWT-token
-/* const generateToken = (id) => {
+const generateToken = (id) => {
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined in environment variables");
   }
 
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
-}; */
+};
 
   
 const registerUser = async (req, res) => {
@@ -69,12 +69,12 @@ const registerUser = async (req, res) => {
 
 // Login user
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { alias, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ alias });
 
-    if (user && (await user.matchPassword(password))) {
+    if (user && bcrypt.compare(password, user.password)) {
       res.json({
         id: user._id,
         name: user.name,
@@ -89,6 +89,7 @@ const loginUser = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 // Get user profile
 const getProfile = async (req, res) => {
@@ -119,7 +120,7 @@ const getUserID = async (req, res) => {
     console.log("Fetching user with ID:", req.params.id);
     const user = await User.findById(req.params.id);
     console.log("Found User:", user);
-    
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -130,4 +131,25 @@ const getUserID = async (req, res) => {
 };
 
 
-export default { registerUser, loginUser, getProfile, getUserID };
+
+const getAllUsers = async (req, res) => {
+  try {
+    // Fetch all users from the database
+    const users = await User.find().select("-password"); // Exclude passwords for security
+
+    // Return the users as an array
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+
+
+export default { 
+  registerUser, 
+  loginUser, 
+  getProfile, 
+  getUserID, 
+  getAllUsers 
+};

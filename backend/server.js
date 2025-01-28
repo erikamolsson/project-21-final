@@ -3,6 +3,7 @@ import cors from "cors";
 import dbConnect from "./config/db.js";
 import challengeRoutes from "./routes/challengeRoutes";
 import userRoutes from "./routes/userRoutes.js";
+import feedRoutes from "./routes/feedRoutes.js";
 /* import path from "path"; */
 import expressListEndpoints from "express-list-endpoints";
 
@@ -32,10 +33,13 @@ app.get("/", (req, res) => {
   });
 });
 
-// Reg users
+// Routes for register and signed in users
 app.use("/users", userRoutes);
 
-// getChallenges
+// Routes for feed (posts and all messages)
+app.use("/posts", feedRoutes);
+
+// Routes for challenges api, get challenges...
 app.use("/challenges", challengeRoutes);
 
 // Serve static files from the `uploads` directory

@@ -7,7 +7,7 @@ import { User } from "../models/userModel.js";
 
 
 const router = Router();
-const { loginUser, getProfile, getUserID } = userController;
+const { loginUser, getProfile, getUserID, getAllUsers } = userController;
 
 
 // Route POST to register a new user
@@ -17,9 +17,10 @@ router.post("/register", async (req, res) => {
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined in environment variables");
   }
-
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
   };
+
+  
 
   try {
     console.log("Incoming Request Body:", req.body);
@@ -47,7 +48,6 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
-    console.log("Creating new user...");
     const user = await User.create({
       name,
       alias,
@@ -60,13 +60,12 @@ router.post("/register", async (req, res) => {
     
     if (user) {
       const responseData = {
-        _id: user._id,
+        id: user._id,
         name: user.name,
         alias: user.alias,
         email: user.email,
         token: generateToken(user._id),
       };
-
       console.log("Response Data:", responseData);
 
       res.status(201).json(responseData);
@@ -74,10 +73,14 @@ router.post("/register", async (req, res) => {
       res.status(400).json({ message: "Invalid user data" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Server error i backend", error: error.message });
+    res.status(500).json({ message: "Server error in backend", error: error.message });
   }
 
 });
+
+
+// Get all users (optional: protected route)
+router.get("/all-users", protect, getAllUsers);
 
 // Route to log in a user
 router.post("/login", loginUser);
@@ -90,15 +93,3 @@ router.get("/:id", protect, getUserID);
 
 
 export default router;
-
-/* try {
-  const result = registerUser({
-    name,
-    alias,
-    email,
-    password,
-  });
-  res.status(201).json(result);
-} catch (error) {
-  res.status(500).json({ message: error.message });
-} */
