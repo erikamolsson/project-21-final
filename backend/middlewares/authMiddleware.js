@@ -23,6 +23,7 @@ export const protect = async (req, res, next) => {
       /* req.user = await User.findById(decoded.id).select("-password"); */
       const user = decoded;
       req.user = user;
+      console.log("User:", user);
       next();
     } catch (error) {
       res.status(401).json({ message: "Not authorised." });
@@ -30,6 +31,6 @@ export const protect = async (req, res, next) => {
   }
 
   if (!token) {
-    res.status(401).json({ message: "No token found." });
+    res.status(401).json({ message: "No token found..." });
   }
 };

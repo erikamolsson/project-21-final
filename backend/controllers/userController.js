@@ -74,13 +74,14 @@ const loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ alias });
 
+    console.log("Stored password:", user ? user.password : "No user found");
     if (user && bcrypt.compare(password, user.password)) {
       res.json({
         id: user._id,
         name: user.name,
         alias: user.alias,
         email: user.email,
-        token: user.token
+        token: user.token,
       });
     } else {
       res.status(401).json({ message: "Invalid credentials" });
@@ -116,16 +117,19 @@ const getProfile = async (req, res) => {
 
 
 const getUserID = async (req, res) => {
+  console.log("🔎 Backend received request for user:", req.params.id);
+
   try {
-    console.log("Fetching user with ID:", req.params.id);
     const user = await User.findById(req.params.id);
     console.log("Found User:", user);
 
     if (!user) {
+      console.warn("User not found!");
       return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json(user);
   } catch (error) {
+    console.error("❌ Server error:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
