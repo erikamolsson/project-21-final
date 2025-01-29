@@ -80,7 +80,7 @@ const loginUser = async (req, res) => {
         name: user.name,
         alias: user.alias,
         email: user.email,
-        token: generateToken(user._id),
+        token: user.token
       });
     } else {
       res.status(401).json({ message: "Invalid credentials" });
