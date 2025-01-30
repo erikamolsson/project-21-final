@@ -6,15 +6,16 @@ import { Button } from "../../reusable/Buttons/Buttons";
 import { RadioButtons } from "./RadioButtons";
 import { SliderCount } from "./SliderCount";
 import { ChalendarStart } from "./ChalendarStart";
+import { useUser } from "../../../context/UserContext";
 
 export const ChallengeForm = () => {
   const [category, setCategory] = useState("");
   const [time, setTime] = useState("");
-  const [goal, setGoal] = useState("");
   const [daysPerWeek, setDaysPerWeek] = useState(1);
   const [startDate, setStartDate] = useState(null);
   const [filteredChallenges, setFilteredChallenges] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { token } = useUser();
 
   // Handle form submission
   const handleSubmit = async () => {
@@ -24,19 +25,18 @@ export const ChallengeForm = () => {
       category,
       time,
       daysPerWeek,
-      startDate,
-      goal,
+      startDate
     };
   
     try {
-      const token = localStorage.getItem("userToken"); // Retrieve the token from localStorage
+      /* const token = localStorage.getItem("token"); */ // Retrieve the token from localStorage
       if (!token) {
       console.error("No token found. User must be logged in.");
       alert("You must be logged in to start challenges.");
       return;
     }
       // Submit form data to the backend to start the challenge period
-      const response = await fetch("http://localhost:7777/api/challenges/start", {
+      const response = await fetch("http://localhost:5000/challenges/start", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

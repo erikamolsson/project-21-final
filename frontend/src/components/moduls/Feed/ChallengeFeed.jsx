@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageFeed } from "./MessageFeed";
 import { PostNewMessage } from "./PostNewMessage";
 
@@ -11,7 +11,7 @@ export const ChallengeFeed = () => {
     const addPost = (newPost) => {
         setChallengeFeed((prevFeed) => [newPost, ...prevFeed]);
         setRefreshTrigger((prev) => !prev);
-    };
+    }; 
 
     return (
         <section>

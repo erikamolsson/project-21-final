@@ -3,9 +3,6 @@ import { createContext, useState, useContext, useEffect } from "react";
 // Create context
 export const UserContext = createContext();
 
-// Custom hook for consuming the UserContext
-export const useUser = () => useContext(UserContext);
-
 // Provider component to wrap the app
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -16,6 +13,7 @@ export const UserProvider = ({ children }) => {
         setUser(userData);
         setToken(userData.token);
         localStorage.setItem("token", userData.token);
+        console.log("🚀 Token updated in context:", userData.token);
     };
 
     // Function to log out the user
@@ -30,15 +28,16 @@ export const UserProvider = ({ children }) => {
         const storedToken = localStorage.getItem("token");
         if (storedToken) {
             setToken(storedToken); // Set token in state
-            // Optionally, fetch user data here if needed
         }
     }, []);
 
 
     return (
-        <UserContext.Provider value={{ user, loginUser, token, logoutUser }}>
+        <UserContext.Provider value={{ user, setUser, loginUser, token, logoutUser }}>
             {children}
         </UserContext.Provider>
     );
 };
+
+export const useUser = () => useContext(UserContext);
 

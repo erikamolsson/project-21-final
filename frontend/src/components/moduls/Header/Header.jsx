@@ -39,13 +39,12 @@ const Menu = styled.ul`
   background-color: #F3EFE5;
   padding: 1rem;
   position: fixed;
-  top: 60px;
+  top: 70px;
   right: ${({ isOpen }) => (isOpen ? "0" : "-100%")}; /* Slide in from the right */
   max-width: 300px; /* Constrain the menu width */
   width: 100%; /* Full width on small screens */
   height: auto;
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 5px 5px;
   transition: right 0.3s ease;
   overflow: hidden; /* Prevent overflow of content */
 
@@ -105,7 +104,7 @@ export const Header = () => {
   return (
     <HeaderBox>
       <NavBar>
-        <Typography variant="h1">
+        <Typography variant="p">
         DailyChallenges
         </Typography>
         <Hamburger onClick={toggleMenu}>

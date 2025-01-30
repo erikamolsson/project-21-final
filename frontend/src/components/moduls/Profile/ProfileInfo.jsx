@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { ContentBox } from "../../reusable/ContentBox/ContentBox";
 import { Typography } from "../../reusable/Typography/Typography";
@@ -13,34 +13,41 @@ const Article = styled.article`
 `;
 
 export const ProfileInfo = () => {
-    const { user } = useUser();
+    const { user, token } = useUser();
+    const [loading, setLoading] = useState(true);
 
+    console.log("Token - Info:", token);
 
-    useEffect(() => {
-
-        if (token) {
-            const fetchProfile = async () => {
-                const token = localStorage.getItem("token");
-
-                const response = await fetch("http://localhost:5000/users/profile", {
-                    method: "GET", 
-                    headers: {
-                        "Authorization": `Bearer ${token}`, 
-                        "Content-Type": "application/json", 
-                    },
-                    body: JSON.stringify(data),
-                });
-                const data = await response.json();
-                loginUser(data); // Update context with fetched data
-            };
-            fetchProfile();
-        }
-    }, [token]);
+    // useEffect(() => {
+    //     if (token) {
+    //         const fetchProfile = async () => {
+    //             try {
+    //             const response = await fetch("http://localhost:5000/users/profile", {
+    //                 method: "GET", 
+    //                 headers: {
+    //                     "Authorization": `Bearer ${token}`, 
+    //                     "Content-Type": "application/json", 
+    //                 }
+    //             });
+    //             const data = await response.json();
+    //                 console.log("User Data:", data);
+    //                 loginUser(data); // Update context with fetched data
+    //             } catch (error) {
+    //                 console.error("Failed to fetch profile:", error);
+    //             } finally {
+    //                 setLoading(false); // Hide loading state
+    //             }
+    //         };
+    //         fetchProfile();
+    //     } else {
+    //         setLoading(false); // No token, no fetch
+    //     }
+    // }, [token, loginUser]);
 
     return (
         <section>
             <Typography variant="h2">
-                Your information
+                My information
             </Typography>
             <ContentBox>
                 <Article>
@@ -69,7 +76,7 @@ export const ProfileInfo = () => {
                 </Article>
             </ContentBox>
             <Button 
-                text="Save my information"
+                text="Change my information"
                 backgroundColor="#91BB97" 
                 width="100%"
                 /* onClick={handleCompleteChallenge} */

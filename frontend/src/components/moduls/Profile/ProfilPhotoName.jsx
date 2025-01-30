@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+/* import { useEffect } from "react"; */
 import styled from "styled-components";
 import { Typography } from "../../reusable/Typography/Typography";
 import { useUser } from "../../../context/UserContext";
 
 
+const SectionProfile = styled.section`
+    margin: 3rem 0 1rem;
+`;
 
 const PhotoName = styled.article`
     display: flex;
@@ -25,39 +28,37 @@ const ProfileName = styled.article`
 
 
 export const ProfilePhotoName = () => {
-    const { user, loginUser } = useUser(); // Access user data from context
+    const { user } = useUser(); // Access user data from context
 
-    const token = localStorage.getItem("token");
-    console.log("Token:", token);
 
-    useEffect(() => {
-        // Fetch profile only if user is null and token is available
-        if (!user && token) {
-            const fetchProfile = async () => {
-                try {
-                    const response = await fetch("http://localhost:5000/users/profile", {
-                        method: "GET", 
-                        headers: {
-                            "Authorization": `Bearer ${token}`, 
-                            "Content-Type": "application/json", 
-                        },
-                    });
+    // useEffect(() => {
+    //     // Fetch profile only if user is null and token is available
+    //     if (!user && token) {
+    //         const fetchProfile = async () => {
+    //             try {
+    //                 const response = await fetch("http://localhost:5000/users/profile", {
+    //                     method: "GET", 
+    //                     headers: {
+    //                         "Authorization": `Bearer ${token}`, 
+    //                         "Content-Type": "application/json", 
+    //                     },
+    //                 });
 
-                    if (!response.ok) {
-                        throw new Error("Failed to fetch profile");
-                    }
+    //                 if (!response.ok) {
+    //                     throw new Error("Failed to fetch profile");
+    //                 }
 
-                    const data = await response.json();
-                    console.log("Fetched Profile Data:", data); 
-                    loginUser(data); // Update context with fetched data
-                } catch (err) {
-                    console.error("Error fetching profile:", err.message);
-                }
-            };
+    //                 const data = await response.json();
+    //                 console.log("Fetched Profile Data:", data); 
+    //                 loginUser(data); // Update context with fetched data
+    //             } catch (err) {
+    //                 console.error("Error fetching profile:", err.message);
+    //             }
+    //         };
 
-            fetchProfile();
-        }
-    }, [user, token, loginUser]);
+    //         fetchProfile();
+    //     }
+    // }, [user, token, loginUser]);
 
     
     if (!user) {
@@ -66,9 +67,9 @@ export const ProfilePhotoName = () => {
     
     
     return (
-        <section>
+        <SectionProfile>
             <Typography variant="h1">
-                Your profile
+                Welcome {user.name}
             </Typography>
             <PhotoName>
                 <ProfilePhoto src="public/assets/IMG_2734.jpeg" alt="Profile picture"/>
@@ -81,6 +82,6 @@ export const ProfilePhotoName = () => {
                     </Typography>
                 </ProfileName>
             </PhotoName>
-        </section>
+        </SectionProfile>
     );
 };

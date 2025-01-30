@@ -4,11 +4,12 @@ import { Typography } from "../../reusable/Typography/Typography";
 
 const FooterContainer = styled.footer`
   background-color: #F3EFE5;
-  padding: 1rem 0;
-  text-align: center;
+  padding: 2rem 0;
+  margin: 4rem 0 0;
   position: fixed;
   bottom: 0;
   width: 98%;
+  margin: 0 auto;
   border-top: 1px solid #d3cdbc;
 `;
 
@@ -16,7 +17,7 @@ const FooterContainer = styled.footer`
 export const Footer = () => {
   return (
     <FooterContainer>
-      <Typography variant="p">
+      <Typography variant="p" textAlign="center">
         Made by: <strong>Erika Olsson</strong> |{" "}
         <a href="mailto:erikamolsson87@gmail.com">erikamolsson87@gmail.com</a>
       </Typography>

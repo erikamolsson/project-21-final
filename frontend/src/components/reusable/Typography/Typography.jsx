@@ -29,11 +29,4 @@ Typography.propTypes = {
     borderBottom: PropTypes.string,
 };
 
-// standard typography
-/* Typography.defaultProps = {
-    variant: "p",
-    fontWeight: "normal",
-    color: "#000",
-    fontSize: "1rem",
-    textAlign: "left",
-}; */
+

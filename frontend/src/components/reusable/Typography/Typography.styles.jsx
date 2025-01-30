@@ -8,7 +8,7 @@ const variantStyles = {
       fontSizeMobile: "2rem", 
       fontWeight: "bold",
       fontFamily: "Playfair Display, serif;",
-      marginAll: "0.5rem 0 1rem"
+      marginAll: "2.5rem 0 1rem"
     },
     h2: {
       fontSize: "2rem",
@@ -16,7 +16,8 @@ const variantStyles = {
       fontSizeMobile: "1.4rem",
       fontWeight: "normal",
       fontFamily: "Playfair Display, serif;",
-      marginAll: "0.5rem 0 0.7rem"
+      marginAll: "0.5rem 0 0.4rem",
+      paddingAll: "1rem 0 0"
     },
     p: {
       fontSize: "1rem",
@@ -44,6 +45,7 @@ const variantStyles = {
         text-align: ${props.textAlign || "left"};
         font-family: ${props.fontFamily || variant.fontFamily};
         margin: ${props.marginAll || variant.marginAll};
+        padding: ${props.paddingAll || variant.paddingAll};
   
         // size for desktop
         font-size: ${props.fontSize || variant.fontSize};

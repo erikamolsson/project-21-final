@@ -69,7 +69,7 @@ const TimePosted = styled.span`
 
 
 
-export const MessageFeed = ({ refreshTrigger}) => {
+export const MessageFeed = ({ refreshTrigger }) => {
     const [posts, setPosts] = useState([]);
     const [likedPosts, setLikedPosts] = useState({});
 
@@ -77,7 +77,7 @@ export const MessageFeed = ({ refreshTrigger}) => {
     useEffect(() => {
       fetch("http://localhost:5000/posts")
           .then(response => response.json())
-          .then(data => setPosts(data.slice(0, 30))) // Limit to 20 latest items
+          .then(data => setPosts(data.slice(0, 30))) // Limit to 30 latest items
           .catch(error => console.error("Error fetching data:", error));
     }, [refreshTrigger]);
 
@@ -123,16 +123,16 @@ export const MessageFeed = ({ refreshTrigger}) => {
 
     return (
         <ContentBox
-            margin="20px 0"
+            margin="30px 0"
         >
             {posts.map((post) => (
             <PostContainer key={post._id}>
                 <TimeAgoRow>
                   <TimePosted>{formatTime(post.timestamp || post.createdAt)}</TimePosted>
                 </TimeAgoRow>
-                <Typography variant="h2">{post.title}</Typography>
-                <Typography variant="p">{post.content}</Typography>
-                {post.image && <Image src={post.image} alt="Post visual" />}
+                {/* <Typography variant="h2">{post.title}</Typography> */}
+                <Typography variant="p">{post.message}</Typography>
+                {/* {post.image && <Image src={post.image} alt="Post visual" />} */}
                 <InfoRow>
                     <LikeButton onClick={() => handleLike(post._id)}>
                         👍 {post.likes} likes

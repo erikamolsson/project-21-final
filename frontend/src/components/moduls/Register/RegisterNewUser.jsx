@@ -4,15 +4,28 @@ import styled from "styled-components";
 import { ContentBox } from "../../reusable/ContentBox/ContentBox";
 import { Typography } from "../../reusable/Typography/Typography";
 import { FormQuestion } from "../ChallengeForm/FormQuestion";
-/* import { Button } from "../../reusable/Buttons/Buttons"; */
+import { Button } from "../../reusable/Buttons/Buttons";
 
 
 const Form = styled.form`
     padding: 1rem;
+    width: 50%;
+    margin: 0 auto;
+
+    @media screen and (max-width: 762px) {
+        width: 90%;
+    }
+`;
+
+const Label = styled.label`
+    font-family: inherit;
+    border-bottom: 1px solid #6b6b6b;
 `;
 
 const Input = styled.input`
-    border: 1px solid #333333;
+    /* border: 1px solid #6b6b6b; */
+    border: none;
+    padding: 0.5rem;
 `;
 
 export const RegisterNewUser = () => {
@@ -80,11 +93,11 @@ export const RegisterNewUser = () => {
           const result = await createUser.json();
           console.log("Result:", result); // Debug the response
 
-            if (!result._id) {
+            if (!result.id) {
             throw new Error("User ID not returned from the server");
             }
           // Navigate to profile page
-          navigate(`/users/${result._id}`);
+          navigate(`/users/${result.id}`);
         } catch (err) {
           setError(err.message || "Something went wrong.");
         }
@@ -100,7 +113,7 @@ export const RegisterNewUser = () => {
                 <Form onSubmit={handleSubmit}>
 
                 <FormQuestion padding="15px" margin="1rem 0">
-                    <label>Name Surname</label>
+                    <Label>Name Surname</Label>
                     <Input 
                         type="text" 
                         value={formData.name} 
@@ -111,7 +124,7 @@ export const RegisterNewUser = () => {
                 </FormQuestion>
 
                 <FormQuestion padding="15px" margin="1rem 0">
-                    <label>Alias for “DailyChallenges”</label>
+                    <Label>Alias for “DailyChallenges”</Label>
                     <Input 
                         type="text" 
                         value={formData.alias} 
@@ -122,7 +135,7 @@ export const RegisterNewUser = () => {
                 </FormQuestion>
 
                 <FormQuestion padding="15px" margin="1rem 0">
-                    <label>E-mail</label>
+                    <Label>E-mail</Label>
                     <Input
                         type="email"
                         name="email"
@@ -133,7 +146,7 @@ export const RegisterNewUser = () => {
                 </FormQuestion>
 
                 <FormQuestion padding="15px" margin="1rem 0">
-                    <label>Password</label>
+                    <Label>Password</Label>
                     <Input
                         type="password"
                         name="password"
@@ -151,10 +164,15 @@ export const RegisterNewUser = () => {
                         onChange={handleFileChange} 
                     />
                 </FormQuestion> */}
-
-                <button type="submit">
+                <Button 
+                text="Create profile"
+                backgroundColor="#E75757" 
+                width="100%"
+                type="submit"
+                />
+                {/* <button type="submit">
                     Create profile
-                </button> 
+                </button>  */}
                 {error && <p>{error}</p>}
                 </Form>
             </ContentBox>
