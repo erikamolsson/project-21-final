@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 
-const SliderWrapper = styled.div`
+const SliderWrapper = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;

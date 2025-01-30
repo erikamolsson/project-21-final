@@ -69,11 +69,6 @@ export const SignInPopup = ({ isVisible, togglePopup}) => {
               },
               body: JSON.stringify({ alias, password }),
             });
-
-            // Log response for debugging
-            console.log("Response Status:", response.status);
-            console.log("Response Details:", response);
-            console.log("Token:", token);
       
             if (!response.ok) {
               const errorDetails = await response.json();

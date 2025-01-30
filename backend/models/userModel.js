@@ -20,13 +20,14 @@ const userSchema = new mongoose.Schema({
   },
   password: { 
     type: String, 
-    required: true,
-    select: false
-  },
+    required: true
+  }
+  /*
+  Generates the wrong token, a string instead
   token: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex")
-  }
+  } */
 });
 
 

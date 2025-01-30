@@ -75,13 +75,22 @@ const loginUser = async (req, res) => {
     const user = await User.findOne({ alias });
 
     console.log("Stored password:", user ? user.password : "No user found");
+
     if (user && bcrypt.compare(password, user.password)) {
+
+      // ✅ Generate JWT token using user ID, generated the wrong token..
+      const token = jwt.sign(
+        { id: user._id }, // Payload
+        process.env.JWT_SECRET, // Secret key
+        { expiresIn: "7d" } // Expiration time
+      );
+
       res.json({
         id: user._id,
         name: user.name,
         alias: user.alias,
         email: user.email,
-        token: user.token,
+        token: token,
       });
     } else {
       res.status(401).json({ message: "Invalid credentials" });

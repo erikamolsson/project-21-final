@@ -10,61 +10,77 @@ const userChallenges = {};
 // POST /api/challenges/start
 // Start challenge period for a user
 router.post("/start", protect, (req, res) => {
-  const { category, time, daysPerWeek, startDate } = req.body;
+  try {
+    const { category, time, daysPerWeek, startDate } = req.body;
 
-  if (!category || !time || !daysPerWeek || !startDate) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
+    if (!category || !time || !daysPerWeek || !startDate) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
-  // Calculate total days based on the selected period
-  const totalDays =
-    time === "One week"
-      ? 7
-      : time === "Three weeks"
-      ? 21
-      : time === "One month"
-      ? 30
-      : time === "Three months"
-      ? 90
-      : 7; // Default to one week
+    // Debugging: Log the request body to see if it's received correctly
+    console.log("Received request body:", req.body);
 
-  // Filter challenges by category
-  const filteredChallenges =
-    category !== "chooseForMe"
-      ? challenges.filter((challenge) => challenge.category === category)
-      : challenges;
+    // Your existing challenge scheduling logic...
+    const totalDays =
+      time === "One week" ? 7 :
+      time === "Three weeks" ? 21 :
+      time === "One month" ? 30 :
+      time === "Three months" ? 90 :
+      7;
 
-  // Shuffle challenges for randomness
-  const shuffledChallenges = filteredChallenges.sort(() => 0.5 - Math.random());
+    // Filter challenges by category
+    const filteredChallenges =
+      category !== "chooseForMe"
+        ? challenges.filter((challenge) => challenge.category === category)
+        : challenges;
 
-  // Schedule challenges based on days per week
-  const schedule = [];
-  let dayOffset = 0;
+    const shuffledChallenges = filteredChallenges.sort(() => 0.5 - Math.random());
+    
+    // Schedule challenges
+    const schedule = [];
+    let dayOffset = 0;
 
-  for (let i = 0; i < daysPerWeek * (totalDays / 7); i++) {
-    const challenge = shuffledChallenges[i % shuffledChallenges.length];
-    const scheduledDate = new Date(startDate);
-    scheduledDate.setDate(scheduledDate.getDate() + dayOffset);
+    for (let i = 0; i < daysPerWeek * (totalDays / 7); i++) {
+      const challenge = shuffledChallenges[i % shuffledChallenges.length];
+      const scheduledDate = new Date(startDate);
+      scheduledDate.setDate(scheduledDate.getDate() + dayOffset);
 
-    schedule.push({
-      challenge,
-      date: scheduledDate,
+      schedule.push({
+        challenge,
+        date: scheduledDate,
+        completed: false
+      });
+
+      dayOffset += Math.floor(7 / daysPerWeek);
+    }
+
+    // Store challenges for the user
+    const userId = req.user?.id;
+    userChallenges[userId] = schedule;
+    
+    console.log("User Challenges Stored:", userChallenges[userId]); // Debugging
+
+    if (!userId) {
+      return res.status(401).json({ message: "User not authenticated" });
+    }
+
+    res.status(201).json({ 
+      message: "Challenge period started" 
     });
 
-    dayOffset += Math.floor(7 / daysPerWeek); // Spread challenges across the week
+  } catch (error) {
+    console.error("Error in /start:", error); // Logs full error
+    res.status(500).json({ message: "Server error", error: error.message });
   }
-
-  // Save user challenge schedule (replace this with database logic)
-  const userId = req.user?.id || "test-user"; // Replace with authenticated user ID
-  userChallenges[userId] = schedule;
-
-  res.status(201).json({ message: "Challenge period started", schedule });
 });
 
 // Get a random challenge for the user
 router.get("/random", protect, (req, res) => {
-  const userId = req.user?.id || "test-user"; // Replace with authenticated user ID
+  const userId = req.user?.id; 
   const today = new Date().toISOString().split("T")[0];
+
+  console.log("Fetching challenges for user:", userId); // Debugging
+  console.log("All stored challenges/random:", userChallenges); // Debugging
 
   if (!userChallenges[userId]) {
     return res.status(404).json({ message: "No challenges found for the user" });

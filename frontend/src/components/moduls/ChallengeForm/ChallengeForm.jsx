@@ -19,7 +19,7 @@ export const ChallengeForm = () => {
 
   // Handle form submission
   const handleSubmit = async () => {
-    console.log("Button clicked!");
+    console.log("Challenge:", token);
 
     const formData = {
       category,
@@ -90,8 +90,8 @@ export const ChallengeForm = () => {
     <section>
       <Typography variant="h1">Set your daily challenge preferences</Typography>
       <ContentBox>
-        <FormQuestion>
-          <Typography variant="p" fontWeight="bold">
+        <FormQuestion padding="15px" margin="1rem 0">
+          <Typography variant="label">
             What category do you wanna challenge yourself in?
           </Typography>
           <RadioButtons
@@ -109,8 +109,8 @@ export const ChallengeForm = () => {
           />
         </FormQuestion>
 
-        <FormQuestion>
-          <Typography variant="p" fontWeight="bold">
+        <FormQuestion padding="15px" margin="1rem 0">
+          <Typography variant="label">
             How long period for challenges?
           </Typography>
           <RadioButtons
@@ -126,8 +126,8 @@ export const ChallengeForm = () => {
           />
         </FormQuestion>
 
-        <FormQuestion>
-          <Typography variant="p" fontWeight="bold">
+        <FormQuestion padding="15px" margin="1rem 0">
+          <Typography variant="label">
             How many challenges per week?
           </Typography>
           <SliderCount
@@ -140,8 +140,8 @@ export const ChallengeForm = () => {
           />
         </FormQuestion>
 
-        <FormQuestion>
-          <Typography variant="p" fontWeight="bold">
+        <FormQuestion padding="15px" margin="1rem 0">
+          <Typography variant="label">
             When do you wanna start?
           </Typography>
           <ChalendarStart

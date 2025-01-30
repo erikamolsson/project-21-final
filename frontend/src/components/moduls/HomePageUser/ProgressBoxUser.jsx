@@ -4,6 +4,7 @@ import { Typography } from "../../reusable/Typography/Typography";
 import { Button } from "../../reusable/Buttons/Buttons";
 import { ProgressBar } from "../HomePageUser/ProgressBar";
 import { ChallengePopup } from "./ChallengePopup";
+import { useUser } from "../../../context/UserContext";
 /* import { EarningsBox } from "../HomePageUser/EarningsBox";  */
 
 
@@ -12,15 +13,21 @@ export const ProgressBoxUser = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [currentChallenge, setCurrentChallenge] = useState(null); // Stores today's challenge
     const [error, setError] = useState(""); 
+    const { token } = useUser();
 
 
     // Fetch today's challenge from the backend
     const fetchDailyChallenge = async () => {
+        if (!token) {
+            setError("You must be logged in to start a challenge.");
+            return;
+        }
+
         try {
-            const response = await fetch("http://localhost:7777/api/challenges/random", {
+            const response = await fetch("http://localhost:5000/challenges/random", {
                 method: "GET",
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("userToken")}`, // Include user's token
+                    "Authorization": `Bearer ${token}`, // Include user's token
                 },
             });
 
@@ -30,6 +37,7 @@ export const ProgressBoxUser = () => {
 
             const data = await response.json();
             setCurrentChallenge(data); // Save the challenge from the backend
+            setError("");
         } catch (err) {
             console.error("Error fetching daily challenge:", err);
             setError("Could not load today's challenge.");
@@ -39,7 +47,7 @@ export const ProgressBoxUser = () => {
     // Fetch challenge when component mounts
     useEffect(() => {
         fetchDailyChallenge();
-    }, []);
+    }, [currentChallenge]);
     
 
     const handleOpenPopup = () => {
@@ -60,15 +68,19 @@ export const ProgressBoxUser = () => {
             return;
         }
 
-        // Optionally, send completion status to the backend
+        if (!token) {
+            setError("You must be logged in to complete a challenge.");
+            return;
+        }
+
         try {
-            const response = await fetch("http://localhost:7777/api/challenges/complete", {
+            const response = await fetch("http://localhost:5000/challenges/complete", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem("userToken")}`,
+                    "Authorization": `Bearer ${token}`,
                 },
-                body: JSON.stringify({ challengeId: currentChallenge.id }),
+                body: JSON.stringify({ challengeId: currentChallenge?.challenge?.id || currentChallenge?.id }),
             });
 
             if (!response.ok) {

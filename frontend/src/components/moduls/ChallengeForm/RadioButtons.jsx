@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 
-const RadioGroupWrapper = styled.div`
+const RadioGroupWrapper = styled.article`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem 1.1rem;

@@ -27,6 +27,14 @@ const variantStyles = {
       fontFamily: "Roboto, serif;",
       marginAll: "0.5rem 0"
     },
+    label: {
+      fontSize: "1rem",
+      fontSizeTablet: "0.9rem",
+      fontSizeMobile: "0.8rem",
+      fontWeight: "bold",
+      fontFamily: "Roboto, serif;",
+      marginAll: "0.5rem 0"
+    },
   };
   
   // Media query breakpoints

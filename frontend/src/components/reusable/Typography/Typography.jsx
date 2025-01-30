@@ -20,7 +20,7 @@ export const Typography = ({ variant, children, fontWeight, color, fontSize, tex
 
 
 Typography.propTypes = {
-    variant: PropTypes.oneOf(["h1", "h2", "p"]),
+    variant: PropTypes.oneOf(["h1", "h2", "p", "label"]),
     children: PropTypes.node.isRequired,
     fontWeight: PropTypes.oneOf(["normal", "bold", "lighter"]),
     color: PropTypes.string,

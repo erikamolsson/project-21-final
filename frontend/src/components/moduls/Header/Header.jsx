@@ -39,9 +39,9 @@ const Menu = styled.ul`
   background-color: #F3EFE5;
   padding: 1rem;
   position: fixed;
-  top: 70px;
+  top: 40px;
   right: ${({ isOpen }) => (isOpen ? "0" : "-100%")}; /* Slide in from the right */
-  max-width: 300px; /* Constrain the menu width */
+  max-width: 200px; /* Constrain the menu width */
   width: 100%; /* Full width on small screens */
   height: auto;
   border-radius: 0 0 5px 5px;

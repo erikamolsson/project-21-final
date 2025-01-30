@@ -16,6 +16,7 @@ export const ProfileID = () => {
 
   console.log("Token from context:", token);
   console.log("🟡 ID from URL params:", id);
+  console.log(user);
 
 
   /* useEffect(() => {
@@ -52,13 +53,9 @@ export const ProfileID = () => {
     };
 
     fetchUserProfile();
-  }, [id, token, setUser]); */
+  }, [id, token]); */
 
-  if (!token) {
-    setError("You must be logged in to view this page.");
-    navigate("/");
-    return;
-  }
+
 
   if (error) {
     return <p>Error: {error}</p>;
