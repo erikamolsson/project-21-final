@@ -10,6 +10,7 @@ import { Register } from "./pages/Register";
 import { UserProvider } from "./context/UserContext";
 import { Header } from "./components/moduls/Header/Header";
 import { Footer } from "./components/moduls/Footer/Footer";
+import { GlobalStyles } from "./styles/GlobalStyle";
 
 
 
@@ -17,6 +18,7 @@ export const App = () => {
 
   return (
     <>
+     <GlobalStyles /> 
       <UserProvider>
         <BrowserRouter>
         <Header />

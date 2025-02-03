@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import { Typography } from "../../reusable/Typography/Typography";
@@ -56,8 +56,21 @@ export const SignInPopup = ({ isVisible, togglePopup}) => {
     const [password, setPassword] = useState("");
     const { loginUser } = useUser();
     const navigate = useNavigate(); // useNavigate hook
+    const inputRef = useRef(null);
 
-    const token = localStorage.getItem("token");
+    /* const token = localStorage.getItem("token"); */
+
+    useEffect(() => {
+      if (isVisible && inputRef.current) {
+          inputRef.current.focus(); // Auto-focus input when modal opens
+      }
+    }, [isVisible]);
+
+    const handleKeyPress = (e) => {
+      if (e.key === "Enter") {
+          handleLogin(); // Submit form on Enter key press
+      }
+    };
 
     // Login logic
     const handleLogin = async () => {
@@ -76,7 +89,7 @@ export const SignInPopup = ({ isVisible, togglePopup}) => {
             }
 
             // Parse the response and save the token
-            const userData = await response.json();// Save token in localStorage
+            const userData = await response.json();
             loginUser(userData);
             console.log("User", userData)
 
@@ -97,16 +110,19 @@ export const SignInPopup = ({ isVisible, togglePopup}) => {
                         Logga in
                     </Typography>
                     <Input
+                        ref={inputRef}
                         type="text"
                         placeholder="Alias"
                         value={alias}
                         onChange={(e) => setAlias(e.target.value)}
+                        onKeyDown={handleKeyPress}
                     />
                     <Input
                         type="password"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        onKeyDown={handleKeyPress}
                     />
                     <Button 
                         text="Sign in!"

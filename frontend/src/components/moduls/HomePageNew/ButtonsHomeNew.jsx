@@ -32,7 +32,7 @@ export const ButtonsHomeNew = () => {
             <StyledLink to="/register">
                 <Button 
                 text="Register!"
-                backgroundColor="#E75757" 
+                backgroundColor="#e43f3f" 
                 width="100%"
                 />
             </StyledLink>
@@ -42,7 +42,7 @@ export const ButtonsHomeNew = () => {
             
             <Button 
                 text="Sign in!"
-                backgroundColor="#91BB97" 
+                backgroundColor="#008441" 
                 width="90%"
                 onClick={togglePopup}
             />

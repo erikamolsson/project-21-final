@@ -7,16 +7,16 @@ export const InfoHomeNew = () => {
     return (
         <ContentBox>
             <Typography variant="p" textAlign="center">
-                🚀 Dagliga utmaningar för olika mål
+                🚀 Daily challenges
             </Typography>
             <Typography variant="p" textAlign="center">
-                📅 Personliga mål
+                📅 Set your goals
             </Typography>
             <Typography variant="p" textAlign="center">
-                🏆 Samla poäng för avklarade utmaningar
+                🏆 Gather earnings
             </Typography>
             <Typography variant="p" textAlign="center">
-                🌟 Positiv och motiverande community
+                🌟 Supportiv community
             </Typography>
         </ContentBox>
     );

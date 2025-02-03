@@ -27,7 +27,8 @@ export const ProgressBoxUser = () => {
             const response = await fetch("http://localhost:5000/challenges/random", {
                 method: "GET",
                 headers: {
-                    "Authorization": `Bearer ${token}`, // Include user's token
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}` // Include user's token
                 },
             });
 
