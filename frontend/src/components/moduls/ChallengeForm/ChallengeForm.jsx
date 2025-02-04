@@ -17,6 +17,8 @@ export const ChallengeForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { token } = useUser();
 
+  const API_CHALLENGES_URL = import.meta.env.VITE_API_URL;
+
   // Handle form submission
   const handleSubmit = async () => {
     console.log("Challenge:", token);
@@ -36,7 +38,7 @@ export const ChallengeForm = () => {
       return;
     }
       // Submit form data to the backend to start the challenge period
-      const response = await fetch("http://localhost:5000/challenges/start", {
+      const response = await fetch(`${API_CHALLENGES_URL}/challenges/start`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

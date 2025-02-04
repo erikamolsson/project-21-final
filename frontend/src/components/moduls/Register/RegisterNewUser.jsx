@@ -38,6 +38,7 @@ export const RegisterNewUser = () => {
 
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const API_REGISTER_URL = import.meta.env.VITE_API_URL;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -76,7 +77,7 @@ export const RegisterNewUser = () => {
 
 
           // Change when deployed
-          const createUser = await fetch("http://localhost:5000/users/register", {
+          const createUser = await fetch(`${API_REGISTER_URL}/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

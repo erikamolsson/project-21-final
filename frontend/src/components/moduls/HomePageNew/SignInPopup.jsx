@@ -58,6 +58,8 @@ export const SignInPopup = ({ isVisible, togglePopup}) => {
     const navigate = useNavigate(); // useNavigate hook
     const inputRef = useRef(null);
 
+    const API_SIGN_IN_URL = import.meta.env.VITE_API_URL;
+
     /* const token = localStorage.getItem("token"); */
 
     useEffect(() => {
@@ -75,7 +77,7 @@ export const SignInPopup = ({ isVisible, togglePopup}) => {
     // Login logic
     const handleLogin = async () => {
         try {
-            const response = await fetch("http://localhost:5000/users/login", {
+            const response = await fetch(`${API_SIGN_IN_URL}/users/login`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

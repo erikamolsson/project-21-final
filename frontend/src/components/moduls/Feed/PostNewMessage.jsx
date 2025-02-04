@@ -44,6 +44,8 @@ export const PostNewMessage = ({ onNewPost }) => {
     /* const [imageFile, setImageFile] = useState(null); */
     const [loading, setLoading] = useState(false);
 
+    const API_FEED_URL = import.meta.env.VITE_API_URL;
+
 
     // Function to handle text input change
     const handleInputChange = (e) => {
@@ -83,7 +85,7 @@ export const PostNewMessage = ({ onNewPost }) => {
 
         try {
             // Send POST request to the backend
-            const response = await fetch("http://localhost:5000/posts", {
+            const response = await fetch(`${API_FEED_URL}/posts`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

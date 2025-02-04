@@ -73,9 +73,11 @@ export const MessageFeed = ({ refreshTrigger }) => {
     const [posts, setPosts] = useState([]);
     const [likedPosts, setLikedPosts] = useState({});
 
+    const API_FEED_URL = import.meta.env.VITE_API_URL;
+
     // Fetch all posts from the backend
     useEffect(() => {
-      fetch("http://localhost:5000/posts")
+      fetch(`${API_FEED_URL}/posts`)
           .then(response => response.json())
           .then(data => setPosts(data.slice(0, 30))) // Limit to 30 latest items
           .catch(error => console.error("Error fetching data:", error));
@@ -87,7 +89,7 @@ export const MessageFeed = ({ refreshTrigger }) => {
       const alreadyLiked = likedPosts[id];
 
       try {
-        await fetch(`http://localhost:5000/posts/${id}/like`, {
+        await fetch(`${API_FEED_URL}/posts/${id}/like`, {
             method: alreadyLiked ? "DELETE" : "POST", 
             headers: { "Content-Type": "application/json" },
           });

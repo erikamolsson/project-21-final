@@ -15,6 +15,8 @@ export const ProgressBoxUser = () => {
     const [error, setError] = useState(""); 
     const { token } = useUser();
 
+    const API_PROGRESS_URL = import.meta.env.VITE_API_URL;
+
 
     // Fetch today's challenge from the backend
     const fetchDailyChallenge = async () => {
@@ -24,7 +26,7 @@ export const ProgressBoxUser = () => {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/challenges/random", {
+            const response = await fetch(`${API_PROGRESS_URL}/challenges/random`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -75,7 +77,7 @@ export const ProgressBoxUser = () => {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/challenges/complete", {
+            const response = await fetch(`${API_PROGRESS_URL}/challenges/complete`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
