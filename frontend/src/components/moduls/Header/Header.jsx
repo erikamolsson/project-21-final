@@ -39,14 +39,14 @@ const Menu = styled.ul`
   background-color: #F3EFE5;
   padding: 1rem;
   position: fixed;
-  top: 40px;
+  top: 30px;
   right: ${({ isOpen }) => (isOpen ? "0" : "-100%")}; /* Slide in from the right */
-  max-width: 200px; /* Constrain the menu width */
-  width: 100%; /* Full width on small screens */
+  max-width: 200px; 
+  width: 100%; 
   height: auto;
   border-radius: 0 0 5px 5px;
   transition: right 0.3s ease;
-  overflow: hidden; /* Prevent overflow of content */
+  overflow: hidden; 
 
   @media (min-width: 768px) {
     display: ${({ isOpen }) => (isOpen ? "block" : "none")}; /* Hide links on desktop */
