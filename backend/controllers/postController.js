@@ -1,3 +1,4 @@
+import { response } from "express";
 import { Post } from "../models/feedPosts";
 
 
@@ -13,7 +14,6 @@ const getAllPosts = async (req, res) => {
 
 // Create a new post
 const createPost = async (req, res) => {
-  /* const image = req.file ? `/uploads/${req.file.filename}` : null; */
 
   try {
     const { message } = req.body;
@@ -58,8 +58,39 @@ const likePost = async (req, res) => {
 };
 
 
+// Post a comment on a message
+const addComment = async (req, res) => {
+  const { id } = req.params;
+  const { text } = req.body;
+
+  try {
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).json({
+        message: "Post not found"
+      });
+    }
+
+    //Add new comment
+    post.comments.push()({ text });
+    await post.save();
+
+    res.status(201).json({
+      success: true,
+      response: post
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+};
+
+
 export default {
   getAllPosts,
   createPost,
   likePost,
+  addComment,
 };

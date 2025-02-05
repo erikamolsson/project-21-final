@@ -15,11 +15,13 @@ const TimeAgoRow = styled.div`
     text-align: end;
 `;
 
+/* 
+Will add this later!
 const Image = styled.img`
   max-width: 100%;
   border-radius: 5px;
   margin: 0.5rem 0;
-`;
+`; */
 
 const InfoRow = styled.div`
   display: flex;
@@ -47,6 +49,20 @@ svg {
 }
 `;
 
+const CommentSection = styled.div`
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+`;
+
+const CommentInput = styled.input`
+  width: calc(100% - 20px);
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
 const CommentButton = styled.button`
   background-color: #5cb85c;
   color: white;
@@ -55,6 +71,7 @@ const CommentButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
+  margin-left: 5px;
 
   &:hover {
     background-color: #4cae4c;
@@ -72,14 +89,16 @@ const TimePosted = styled.span`
 export const MessageFeed = ({ refreshTrigger }) => {
     const [posts, setPosts] = useState([]);
     const [likedPosts, setLikedPosts] = useState({});
+    const [commentInputs, setCommentInputs] = useState({});
 
-    const API_FEED_URL = import.meta.env.VITE_API_URL;
+    const API_FEED_URL = import.meta.env.VITE_API_URL_DEV;
 
     // Fetch all posts from the backend
+    /* ${API_FEED_URL}/posts` */
     useEffect(() => {
-      fetch(`${API_FEED_URL}/posts`)
+      fetch("http://localhost:5000/posts")
           .then(response => response.json())
-          .then(data => setPosts(data.slice(0, 30))) // Limit to 30 latest items
+          .then(data => setPosts(data.slice(0, 20))) 
           .catch(error => console.error("Error fetching data:", error));
     }, [refreshTrigger]);
 
@@ -106,7 +125,35 @@ export const MessageFeed = ({ refreshTrigger }) => {
           console.error("Error updating like:", error);
         }
       };
+
+    // Handle comment input change
+    const handleCommentChange = (postId, text) => {
+      setCommentInputs((prev) => ({ ...prev, [postId]: text }));
+    };
     
+    // Submit comment
+    const submitComment = async (postId) => {
+      const text = commentInputs[postId];
+      if (!text) return;
+
+      try {
+        const response = await fetch(`${API_FEED_URL}/posts/${postId}/comments`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text }),
+        });
+
+        if (response.ok) {
+          const updatedPost = await response.json();
+          setPosts((prev) =>
+            prev.map((post) => (post._id === postId ? updatedPost.response : post))
+          );
+          setCommentInputs((prev) => ({ ...prev, [postId]: "" })); // Clear input
+        }
+      } catch (error) {
+        console.error("Error adding comment:", error);
+      }
+    };
 
     // How long ago a message was posted
     const formatTime = (timestamp) => {
@@ -124,9 +171,7 @@ export const MessageFeed = ({ refreshTrigger }) => {
     };
 
     return (
-        <ContentBox
-            margin="30px 0"
-        >
+        <ContentBox margin="30px 0">
             {posts.map((post) => (
             <PostContainer key={post._id}>
                 <TimeAgoRow>
@@ -139,8 +184,30 @@ export const MessageFeed = ({ refreshTrigger }) => {
                     <LikeButton onClick={() => handleLike(post._id)}>
                         👍 {post.likes} likes
                     </LikeButton>
-                    <CommentButton>Comment</CommentButton>
+                    <CommentButton onClick={() => submitComment(post._id)}>Comment</CommentButton>
                 </InfoRow>
+
+                {/* Comment Section */}
+                <CommentSection>
+                  {post.comments && post.comments.length > 0 && (
+                    <div>
+                    {post.comments.map((comment, index) => (
+                      <Typography key={index} variant="p">
+                        {comment.text}
+                      </Typography>
+                    ))}
+                    </div>
+                  )}
+                  <CommentInput
+                    type="text"
+                    placeholder="Write a comment..."
+                    value={commentInputs[post._id] || ""}
+                    onChange={(e) => handleCommentChange(post._id, e.target.value)}
+                  />
+                  <CommentButton onClick={() => submitComment(post._id)}>
+                    Submit
+                  </CommentButton>
+                </CommentSection>
             </PostContainer>
             ))}
         </ContentBox>
