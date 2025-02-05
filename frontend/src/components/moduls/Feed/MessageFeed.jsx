@@ -28,7 +28,7 @@ const InfoRow = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 0.8rem;
-  margin-top: 0.5rem;
+  margin: 1.5rem 0 1.5rem;
 `;
 
 const LikeButton = styled.button`
@@ -53,12 +53,14 @@ const CommentSection = styled.div`
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
 `;
 
 const CommentInput = styled.input`
   width: calc(100% - 20px);
-  padding: 5px;
-  margin-top: 5px;
+  padding: 0.5rem;
+  margin: 0.5rem 0 0.5rem;
   border: 1px solid #ccc;
   border-radius: 5px;
 `;
@@ -71,7 +73,7 @@ const CommentButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
-  margin-left: 5px;
+  width: 40%;
 
   &:hover {
     background-color: #4cae4c;
@@ -94,9 +96,8 @@ export const MessageFeed = ({ refreshTrigger }) => {
     const API_FEED_URL = import.meta.env.VITE_API_URL_DEV;
 
     // Fetch all posts from the backend
-    /* ${API_FEED_URL}/posts` */
     useEffect(() => {
-      fetch("http://localhost:5000/posts")
+      fetch(`${API_FEED_URL}/posts`)
           .then(response => response.json())
           .then(data => setPosts(data.slice(0, 20))) 
           .catch(error => console.error("Error fetching data:", error));
@@ -184,7 +185,7 @@ export const MessageFeed = ({ refreshTrigger }) => {
                     <LikeButton onClick={() => handleLike(post._id)}>
                         👍 {post.likes} likes
                     </LikeButton>
-                    <CommentButton onClick={() => submitComment(post._id)}>Comment</CommentButton>
+                    {/* <CommentButton onClick={() => submitComment(post._id)}>Comment</CommentButton> */}
                 </InfoRow>
 
                 {/* Comment Section */}
