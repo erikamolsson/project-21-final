@@ -46,7 +46,7 @@ export const ChallengePopup = ({ isOpen, onClose, challenge }) => {
         </Typography>
         <Button 
             text="OK"
-            backgroundColor="#E75757" 
+            backgroundColor="#e43f3f" 
             width="100%"
             onClick={onClose} 
         />

@@ -55,10 +55,10 @@ export const SignInPopup = ({ isVisible, togglePopup}) => {
     const [alias, setAlias] = useState("");
     const [password, setPassword] = useState("");
     const { loginUser } = useUser();
-    const navigate = useNavigate(); // useNavigate hook
+    const navigate = useNavigate(); 
     const inputRef = useRef(null);
 
-    const API_SIGN_IN_URL = import.meta.env.VITE_API_URL;
+    const API_SIGN_IN_URL = import.meta.env.VITE_API_URL_DEV;
 
     /* const token = localStorage.getItem("token"); */
 
@@ -128,7 +128,7 @@ export const SignInPopup = ({ isVisible, togglePopup}) => {
                     />
                     <Button 
                         text="Sign in!"
-                        backgroundColor="#E75757" 
+                        backgroundColor="#e43f3f" 
                         width="100%"
                         onClick={handleLogin} 
                     />

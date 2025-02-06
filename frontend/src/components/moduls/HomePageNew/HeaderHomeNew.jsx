@@ -7,7 +7,7 @@ export const HeaderHomeNew = () => {
     return (
         <section>
             <ImageBox 
-                src="public/assets/tjej-app.png" 
+                src="/assets/tjej-app.png" 
                 alt="Header New Visitor > Daily Quests" 
                 height="400px"
             />

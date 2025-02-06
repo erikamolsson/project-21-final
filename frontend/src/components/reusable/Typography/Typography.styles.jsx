@@ -24,8 +24,7 @@ const variantStyles = {
       fontSizeTablet: "0.9rem",
       fontSizeMobile: "0.8rem",
       fontWeight: "normal",
-      fontFamily: "Roboto, serif;",
-      marginAll: "0.5rem 0"
+      fontFamily: "Roboto, serif;"
     },
     label: {
       fontSize: "1rem",
@@ -49,6 +48,7 @@ const variantStyles = {
   
       return css`
         font-weight: ${props.fontWeight || variant.fontWeight};
+        border-bottom: ${props.borderBottom || variant.borderBottom};
         color: ${props.color || "#000"};
         text-align: ${props.textAlign || "left"};
         font-family: ${props.fontFamily || variant.fontFamily};
@@ -69,5 +69,3 @@ const variantStyles = {
       `;
     }}
   `;
-
-/*   export default StyledTypography; */

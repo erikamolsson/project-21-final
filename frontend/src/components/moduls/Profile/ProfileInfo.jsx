@@ -77,7 +77,7 @@ export const ProfileInfo = () => {
             </ContentBox>
             <Button 
                 text="Change my information"
-                backgroundColor="#91BB97" 
+                backgroundColor="#008441" 
                 width="100%"
                 /* onClick={handleCompleteChallenge} */
             />

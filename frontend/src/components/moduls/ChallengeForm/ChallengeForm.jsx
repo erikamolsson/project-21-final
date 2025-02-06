@@ -17,7 +17,7 @@ export const ChallengeForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { token } = useUser();
 
-  const API_CHALLENGES_URL = import.meta.env.VITE_API_URL;
+  const API_CHALLENGES_URL = import.meta.env.VITE_API_URL_DEV;
 
   // Handle form submission
   const handleSubmit = async () => {
@@ -80,7 +80,7 @@ export const ChallengeForm = () => {
         </ContentBox>
         <Button
           text="Go back"
-          backgroundColor="#E75757"
+          backgroundColor="#e43f3f"
           width="100%"
           onClick={() => setIsSubmitted(false)}
         />

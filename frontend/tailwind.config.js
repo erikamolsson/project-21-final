@@ -1,6 +1,9 @@
 export const content = [
-    "./src/**/*.{js,jsx,ts,tsx}", // Adjust to match your project structure
-    "./index.html",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+
+    // Or if using `src` directory:
+    "./src/**/*.{js,ts,jsx,tsx}",
 ];
 export const theme = {
     extend: {},

@@ -45,9 +45,9 @@ export const ProfileSettings = () => {
             </ContentBox>
             <Button 
                 text="Change my settings"
-                backgroundColor="#E75757" 
+                backgroundColor="#e43f3f"
                 width="100%"
-                /* onClick={handleCompleteChallenge} */
+                /* onClick={} */
             />
         </section>
     );

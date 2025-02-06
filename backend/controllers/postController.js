@@ -60,19 +60,24 @@ const likePost = async (req, res) => {
 
 // Post a comment on a message
 const addComment = async (req, res) => {
+
   const { id } = req.params;
   const { text } = req.body;
+
+  if (!text || text.trim() === "") {
+    console.log("❌ Error: Comment text is missing!");
+    return res.status(400).json({ message: "Comment text is required" });
+  }
 
   try {
     const post = await Post.findById(id);
     if (!post) {
-      return res.status(404).json({
-        message: "Post not found"
-      });
+      console.log("❌ Post not found:", id);
+      return res.status(404).json({ message: "Post not found" });
     }
 
     //Add new comment
-    post.comments.push()({ text });
+    post.comments.push({ text });
     await post.save();
 
     res.status(201).json({

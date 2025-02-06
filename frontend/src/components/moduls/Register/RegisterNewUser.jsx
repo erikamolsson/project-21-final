@@ -69,12 +69,6 @@ export const RegisterNewUser = () => {
 
           console.log("Form Data Submitted:", formDataToSend);
 
-          /* const formDataToSend = new FormData();
-          formDataToSend.append("name", formData.name);
-          formDataToSend.append("alias", formData.alias);
-          formDataToSend.append("email", formData.email);
-          formDataToSend.append("password", formData.password); */
-
 
           // Change when deployed
           const createUser = await fetch(`${API_REGISTER_URL}/users/register`, {
@@ -167,7 +161,7 @@ export const RegisterNewUser = () => {
                 </FormQuestion> */}
                 <Button 
                 text="Create profile"
-                backgroundColor="#E75757" 
+                backgroundColor="#e43f3f" 
                 width="100%"
                 type="submit"
                 />

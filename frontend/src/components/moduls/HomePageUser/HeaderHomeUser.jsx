@@ -7,7 +7,7 @@ export const HeaderHomeUser = () => {
     return (
         <section>
             <ImageBox 
-                src="public/assets/tjej-app.png" 
+                src="/assets/tjej-app.png" 
                 alt="Header Logged in user > Daily Quests" 
                 height="400px"
             />

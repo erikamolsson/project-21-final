@@ -44,7 +44,7 @@ export const PostNewMessage = ({ onNewPost }) => {
     /* const [imageFile, setImageFile] = useState(null); */
     const [loading, setLoading] = useState(false);
 
-    const API_FEED_URL = import.meta.env.VITE_API_URL;
+    const API_FEED_URL = import.meta.env.VITE_API_URL_DEV;
 
 
     // Function to handle text input change
@@ -153,7 +153,7 @@ export const PostNewMessage = ({ onNewPost }) => {
                 <BtnRow>
                     <Button 
                         text="Send"
-                        backgroundColor="#E75757" 
+                        backgroundColor="#e43f3f" 
                         /* onClick={handleStartChallenge} */
                         type="submit" 
                         disabled={loading}

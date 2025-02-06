@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export const Dashboard = () => {
   const [dailyChallenge, setDailyChallenge] = useState(null);
   const [error, setError] = useState("");
-  const API_FETCH_CHALLENGE_URL = import.meta.env.VITE_API_URL;
+  const API_FETCH_CHALLENGE_URL = import.meta.env.VITE_API_URL_DEV;
 
   const fetchDailyChallenge = async () => {
     try {

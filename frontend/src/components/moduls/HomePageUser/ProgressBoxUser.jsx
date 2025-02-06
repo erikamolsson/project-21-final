@@ -15,7 +15,7 @@ export const ProgressBoxUser = () => {
     const [error, setError] = useState(""); 
     const { token } = useUser();
 
-    const API_PROGRESS_URL = import.meta.env.VITE_API_URL;
+    const API_PROGRESS_URL = import.meta.env.VITE_API_URL_DEV;
 
 
     // Fetch today's challenge from the backend
@@ -108,7 +108,7 @@ export const ProgressBoxUser = () => {
 
             <Button 
                 text="Start the challenge!"
-                backgroundColor="#E75757" 
+                backgroundColor="#e43f3f" 
                 width="100%"
                 onClick={handleOpenPopup}
             />

@@ -18,7 +18,7 @@ const ProgressContainer = styled.div`
 const Progress = styled.div`
   height: 100%;
   width: ${(props) => props.percentage}%;
-  background-color: #e75757; /* Röd färg */
+  background-color: #e43f3f;
   transition: width 0.3s ease-in-out;
 `;
 
