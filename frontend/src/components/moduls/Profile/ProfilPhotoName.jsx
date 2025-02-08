@@ -72,7 +72,7 @@ export const ProfilePhotoName = () => {
                 Welcome {user.name}
             </Typography>
             <PhotoName>
-                <ProfilePhoto src="public/assets/IMG_2734.jpeg" alt="Profile picture"/>
+                <ProfilePhoto src="/assets/IMG_2734.jpeg" alt="Profile picture"/>
                 <ProfileName>
                     <Typography variant="p" fontWeight="bold">
                         {user.name}

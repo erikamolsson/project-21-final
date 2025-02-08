@@ -5,7 +5,7 @@ import { Button } from "../../reusable/Buttons/Buttons";
 import { ProgressBar } from "../HomePageUser/ProgressBar";
 import { ChallengePopup } from "./ChallengePopup";
 import { useUser } from "../../../context/UserContext";
-/* import { EarningsBox } from "../HomePageUser/EarningsBox";  */
+/* import { EarningsBox } from "../HomePageUser/EarningsBox";  Not working right now ....*/
 
 
 export const ProgressBoxUser = () => {
@@ -30,7 +30,7 @@ export const ProgressBoxUser = () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}` // Include user's token
+                    "Authorization": `Bearer ${token}`,
                 },
             });
 

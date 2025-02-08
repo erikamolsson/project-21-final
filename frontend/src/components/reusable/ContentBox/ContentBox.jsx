@@ -46,5 +46,5 @@ ContentBox.propTypes = {
 ContentBox.defaultProps = {
     padding: "20px",
     margin: "10px auto",
-    backgroundColor: "#F3EFE5",
+    backgroundColor: "#eddcaf",
 };

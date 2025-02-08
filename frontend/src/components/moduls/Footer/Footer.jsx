@@ -3,7 +3,7 @@ import { Typography } from "../../reusable/Typography/Typography";
 
 
 const FooterContainer = styled.footer`
-  background-color: #F3EFE5;
+  background-color: #eddcaf;
   padding: 1rem 0;
   width: 100%;
   margin: 4rem auto 0;

@@ -11,7 +11,7 @@ const router = Router();
 // Start challenge period for a user
 router.post("/start", protect, async (req, res) => {
   try {
-    const { category, time, daysPerWeek, startDate } = req.body;
+    const { category, time, daysPerWeek, startDate, challenges } = req.body;
     
 
     if (!category || !time || !daysPerWeek || !startDate) {
@@ -60,6 +60,7 @@ router.post("/start", protect, async (req, res) => {
       dayOffset += Math.floor(7 / daysPerWeek);
     }
 
+    console.log("filteredChallenges:", filteredChallenges);
 
     const userId = req.user?.id;
     console.log("User:", userId)
@@ -104,7 +105,9 @@ router.get("/random", protect, async (req, res) => {
 
   if (!challengePeriod) {
     console.error("❌ No challenges found in database for user");
-    return res.status(404).json({ message: "No challenges found for the user" });
+    return res.status(404).json({ 
+      message: "No challenges found for the user" 
+    });
   }
 
    // 🔥 Log all challenges before filtering by date
@@ -123,7 +126,9 @@ router.get("/random", protect, async (req, res) => {
   console.log("🔍 Today's Challenge:", todayChallenge); // 🔥 Debugging
 
   if (!todayChallenge) {
-    return res.status(404).json({ message: "No challenge scheduled for today" });
+    return res.status(404).json({ 
+      message: "No challenge scheduled for today" 
+    });
   }
 
   res.json(todayChallenge.challenge);

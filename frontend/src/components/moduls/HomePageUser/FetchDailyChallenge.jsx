@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 export const Dashboard = () => {
   const [dailyChallenge, setDailyChallenge] = useState(null);
   const [error, setError] = useState("");
+  const { token } = useUser();
+
   const API_FETCH_CHALLENGE_URL = import.meta.env.VITE_API_URL_DEV;
 
   const fetchDailyChallenge = async () => {
@@ -11,7 +13,7 @@ export const Dashboard = () => {
       const response = await fetch(`${API_FETCH_CHALLENGE_URL}/challenges/random`, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${localStorage.getItem("userToken")}`, // Include the user's token
+          "Authorization": `Bearer ${token}`,
         },
       });
 

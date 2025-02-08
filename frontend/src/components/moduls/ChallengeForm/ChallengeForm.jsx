@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Typography } from "../../reusable/Typography/Typography";
 import { ContentBox } from "../../reusable/ContentBox/ContentBox";
 import { FormQuestion } from "./FormQuestion";
@@ -31,7 +31,7 @@ export const ChallengeForm = () => {
     };
   
     try {
-      /* const token = localStorage.getItem("token"); */ // Retrieve the token from localStorage
+      // Retrieve the token from localStorage
       if (!token) {
       console.error("No token found. User must be logged in.");
       alert("You must be logged in to start challenges.");
@@ -160,7 +160,7 @@ export const ChallengeForm = () => {
 
         <Button
           text="Start challenges!"
-          backgroundColor="#E75757"
+          backgroundColor="#e43f3f"
           width="100%"
           onClick={handleSubmit}
         />

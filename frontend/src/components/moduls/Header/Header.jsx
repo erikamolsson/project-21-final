@@ -10,7 +10,7 @@ const HeaderBox = styled.header`
 `;
 
 const NavBar = styled.nav`
-  background-color: #F3EFE5;
+  background-color: #eddcaf;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,7 +36,7 @@ const Hamburger = styled.div`
 
 const Menu = styled.ul`
   list-style: none;
-  background-color: #F3EFE5;
+  background-color: #eddcaf;
   padding: 1rem;
   position: fixed;
   top: 30px;
