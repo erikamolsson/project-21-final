@@ -21,6 +21,11 @@ router.post("/start", protect, async (req, res) => {
     // Debugging: Log the request body to see if it's received correctly
     console.log("Received request body:", req.body);
 
+    // Check if `challenges` exists before filtering
+    if (!Array.isArray(challenges)) {
+      return res.status(400).json({ message: "Challenges must be an array" });
+    }
+
     // Your existing challenge scheduling logic...
     const totalDays =
       time === "One week" ? 7 :
@@ -63,7 +68,7 @@ router.post("/start", protect, async (req, res) => {
     console.log("filteredChallenges:", filteredChallenges);
 
     const userId = req.user?.id;
-    console.log("User:", userId)
+    console.log("User1:", userId)
 
     // 🔥 Save to MongoDB instead of `userChallenges`
     const challengePeriod = new usersChoiseChallenge({
@@ -78,7 +83,9 @@ router.post("/start", protect, async (req, res) => {
     await challengePeriod.save();
 
     if (!userId) {
-      return res.status(401).json({ message: "User not authenticated" });
+      return res.status(401).json({ 
+        message: "User not authenticated" 
+      });
     }
 
     res.status(201).json({ 
@@ -87,7 +94,9 @@ router.post("/start", protect, async (req, res) => {
 
   } catch (error) {
     console.error("Error in /start:", error); // Logs full error
-    res.status(500).json({ message: "Server error", error: error.message });
+    res.status(500).json({ 
+      message: "Server error", error: error.message 
+    });
   }
 });
 
@@ -162,11 +171,15 @@ router.post("/complete", protect, async (req, res) => {
     // Save the updated challenge period in MongoDB
     await challengePeriod.save();
 
-    res.json({ message: "Challenge marked as completed!" });
+    res.json({ 
+      message: "Challenge marked as completed!" 
+    });
 
   } catch (error) {
     console.error("Error completing challenge:", error);
-    res.status(500).json({ message: "Server error", error: error.message });
+    res.status(500).json({ 
+      message: "Server error", error: error.message 
+    });
   }
 });
 

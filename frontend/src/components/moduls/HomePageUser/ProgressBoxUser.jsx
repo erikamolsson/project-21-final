@@ -50,7 +50,14 @@ export const ProgressBoxUser = () => {
     // Fetch challenge when component mounts
     useEffect(() => {
         fetchDailyChallenge();
-    }, [currentChallenge]);
+    }, []);
+
+    /* useEffect(() => {
+        if (!currentChallenge) { 
+            fetchDailyChallenge();
+        }
+    }, [currentChallenge]); */ // ✅ Will only run if `currentChallenge` is null
+    
     
 
     const handleOpenPopup = () => {
@@ -117,7 +124,7 @@ export const ProgressBoxUser = () => {
             </Typography>
             <Button 
                 text="Challenge is done!"
-                backgroundColor="#91BB97" 
+                backgroundColor="#008441" 
                 width="100%"
                 onClick={handleCompleteChallenge}
             />
