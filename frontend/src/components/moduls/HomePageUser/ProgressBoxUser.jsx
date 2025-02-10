@@ -11,7 +11,7 @@ import { useUser } from "../../../context/UserContext";
 export const ProgressBoxUser = () => {
     const [progress, setProgress] = useState(10);
     const [showPopup, setShowPopup] = useState(false);
-    const [currentChallenge, setCurrentChallenge] = useState(null); // Stores today's challenge
+    const [currentChallenge, setCurrentChallenge] = useState(null); 
     const [error, setError] = useState(""); 
     const { token } = useUser();
 
@@ -56,7 +56,7 @@ export const ProgressBoxUser = () => {
         if (!currentChallenge) { 
             fetchDailyChallenge();
         }
-    }, [currentChallenge]); */ // ✅ Will only run if `currentChallenge` is null
+    }, [currentChallenge]);  */ // ✅ Will only run if `currentChallenge` is null
     
     
 

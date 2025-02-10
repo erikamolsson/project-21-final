@@ -22,8 +22,9 @@ export const ChallengeForm = () => {
   const API_CHALLENGES_URL = import.meta.env.VITE_API_URL_DEV;
 
   // Handle form submission
-  const handleSubmit = async () => {
-    console.log("Challenge:", token);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
 
     const formData = {
       category,
@@ -33,7 +34,6 @@ export const ChallengeForm = () => {
     };
   
     try {
-      // Retrieve the token from localStorage
       if (!token) {
       console.error("No token found. User must be logged in.");
       alert("You must be logged in to start challenges.");
@@ -67,21 +67,12 @@ export const ChallengeForm = () => {
   if (isSubmitted) {
     return (
       <section>
-        <Typography variant="h1">Your Selected Challenges</Typography>
+        <Typography variant="h1">Lets get ready!</Typography>
         <ContentBox>
-          {filteredChallenges && filteredChallenges.length > 0 ? (
-            filteredChallenges.map((challenge) => (
-              <div key={challenge.id}>
-                <Typography variant="h2">{challenge.title}</Typography>
-                <Typography variant="p">{challenge.text}</Typography>
-              </div>
-            ))
-          ) : (
-            <Typography variant="p">No challenges were selected based on your preferences.</Typography>
-          )}
+            <Typography variant="p">Your challenges period has been received successfully. Start whenever you are ready! </Typography>
         </ContentBox>
         <Button
-          text="Go back"
+          text="< Change my challenges"
           backgroundColor="#e43f3f"
           width="100%"
           onClick={() => setIsSubmitted(false)}

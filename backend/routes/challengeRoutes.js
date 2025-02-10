@@ -11,20 +11,15 @@ const router = Router();
 // Start challenge period for a user
 router.post("/start", protect, async (req, res) => {
   try {
-    const { category, time, daysPerWeek, startDate, challenges } = req.body;
+    const { category, time, daysPerWeek, startDate } = req.body;
     
 
     if (!category || !time || !daysPerWeek || !startDate) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Debugging: Log the request body to see if it's received correctly
+    // Debugging
     console.log("Received request body:", req.body);
-
-    // Check if `challenges` exists before filtering
-    if (!Array.isArray(challenges)) {
-      return res.status(400).json({ message: "Challenges must be an array" });
-    }
 
     // Your existing challenge scheduling logic...
     const totalDays =
@@ -93,7 +88,7 @@ router.post("/start", protect, async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Error in /start:", error); // Logs full error
+    console.error("Error in /start:", error); 
     res.status(500).json({ 
       message: "Server error", error: error.message 
     });
