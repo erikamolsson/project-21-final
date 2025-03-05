@@ -15,7 +15,7 @@ export const Footer = () => {
   return (
     <FooterContainer>
       <Typography variant="p" textAlign="center">
-        Made by: <strong>Erika Olsson</strong> |{" "}
+        Made by: <strong>Erika M Olsson</strong> |{" "}
         <a href="mailto:erikamolsson87@gmail.com">erikamolsson87@gmail.com</a>
       </Typography>
     </FooterContainer>
