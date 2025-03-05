@@ -38,7 +38,7 @@ export const RegisterNewUser = () => {
 
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const API_REGISTER_URL = import.meta.env.VITE_API_URL_DEV;
+    const API_REGISTER_URL = import.meta.env.VITE_API_URL_PROD;
 
     const handleChange = (e) => {
         const { name, value } = e.target;

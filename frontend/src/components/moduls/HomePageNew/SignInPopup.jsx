@@ -58,7 +58,7 @@ export const SignInPopup = ({ isVisible, togglePopup}) => {
     const navigate = useNavigate(); 
     const inputRef = useRef(null);
 
-    const API_SIGN_IN_URL = import.meta.env.VITE_API_URL_DEV;
+    const API_SIGN_IN_URL = import.meta.env.VITE_API_URL_PROD;
 
     /* const token = localStorage.getItem("token"); */
 

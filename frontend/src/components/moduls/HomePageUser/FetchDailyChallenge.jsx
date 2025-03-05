@@ -6,7 +6,7 @@ export const Dashboard = () => {
   const [error, setError] = useState("");
   const { token } = useUser();
 
-  const API_FETCH_CHALLENGE_URL = import.meta.env.VITE_API_URL_DEV;
+  const API_FETCH_CHALLENGE_URL = import.meta.env.VITE_API_URL_PROD;
 
   const fetchDailyChallenge = async () => {
     try {

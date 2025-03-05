@@ -19,7 +19,7 @@ export const ChallengeForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { token } = useUser();
 
-  const API_CHALLENGES_URL = import.meta.env.VITE_API_URL_DEV;
+  const API_CHALLENGES_URL = import.meta.env.VITE_API_URL_PROD;
 
   // Handle form submission
   const handleSubmit = async (event) => {

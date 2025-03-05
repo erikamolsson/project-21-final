@@ -44,7 +44,7 @@ export const PostNewMessage = ({ onNewPost }) => {
     /* const [imageFile, setImageFile] = useState(null); */
     const [loading, setLoading] = useState(false);
 
-    const API_FEED_URL = import.meta.env.VITE_API_URL_DEV;
+    const API_FEED_URL = import.meta.env.VITE_API_URL_PROD;
 
 
     // Function to handle text input change

@@ -15,7 +15,7 @@ export const ProgressBoxUser = () => {
     const [error, setError] = useState(""); 
     const { token } = useUser();
 
-    const API_PROGRESS_URL = import.meta.env.VITE_API_URL_DEV;
+    const API_PROGRESS_URL = import.meta.env.VITE_API_URL_PROD;
 
 
     // Fetch today's challenge from the backend

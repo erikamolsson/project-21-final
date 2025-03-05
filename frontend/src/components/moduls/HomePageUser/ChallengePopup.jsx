@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+
 import styled from "styled-components";
 import { Typography } from "../../reusable/Typography/Typography";
 import { Button } from "../../reusable/Buttons/Buttons";

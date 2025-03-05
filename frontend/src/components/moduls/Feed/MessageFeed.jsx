@@ -97,7 +97,7 @@ export const MessageFeed = ({ refreshTrigger }) => {
     const [likedPosts, setLikedPosts] = useState({});
     const [commentInputs, setCommentInputs] = useState({});
 
-    const API_FEED_URL = import.meta.env.VITE_API_URL_DEV;
+    const API_FEED_URL = import.meta.env.VITE_API_URL_PROD;
     console.log("API URL:", `${API_FEED_URL}/posts`); // Debugging
 
     // Fetch all posts from the backen
